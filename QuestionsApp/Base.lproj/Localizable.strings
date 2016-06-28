@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  QuestionsApp
+
+  Created by Hung Le Duc on 6/7/16.
+  Copyright © 2016 Hungld. All rights reserved.
+*/
+
+"Your's" = "Your's";
+"Home" = "Home";
+"Most" = "Most";
+"Question" = "Question";
+
+"Report question." = "Report question.";
+"Check" = "Check";
+"Next" = "Next";
+"Cancel" = "Cancel";
+"Close" = "Close";
+"Result" = "Result";
+
+"REPORT" = "REPORT";
+"Correct" = "Correct";
+"Correct answer: " = "Correct answer: ";
+"(Choose a answer)" = "(Choose a answer)";
+"(Choose multiple answers)" = "(Choose multiple answers)";
+"Are you sure want to close?" = "Are you sure want to close?";
+"The question you anwsered will be lost." = "The question you anwsered will be lost.";

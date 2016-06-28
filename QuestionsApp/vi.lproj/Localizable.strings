@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  QuestionsApp
+
+  Created by Hung Le Duc on 6/7/16.
+  Copyright © 2016 Hungld. All rights reserved.
+*/
+
+"Your's" = "Your's";
+"Home" = "Home";
+"Most" = "Most";
+"Question" = "Question";
+
+"Report question." = "Có vấn đề với bài tập này.";
+"Check" = "Kiểm tra";
+"Next" = "Tiếp tục";
+"Cancel" = "Huỷ";
+"Close" = "Đóng";
+"Result" = "Kết quả";
+
+"REPORT" = "BÁO CÁO";
+"Correct" = "Chính xác";
+"Correct answer: " = "Đáp án đúng: ";
+"(Choose a answer)" = "(Chọn một đáp án đúng)";
+"(Choose multiple answers)" = "(Chọn nhiều đáp án đúng)";
+"Are you sure want to close?" = "Bạn có chắc chắn muốn thoát?";
+"The question you anwsered will be lost." = "Các kết quả bạn vừa trả lời sẽ bị mất.";
