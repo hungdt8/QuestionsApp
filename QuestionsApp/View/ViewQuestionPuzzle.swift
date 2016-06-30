@@ -64,9 +64,9 @@ class ViewQuestionPuzzle: ViewQuestion {
 			views: views)
 		allConstraints += horizontallConstraints
 
-		let height = 44 * 3
+		let height = 44.0 * 3.0
 		let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			String(format: "V:[labelQuestion]-%d-[targetView(%d)]", topConstraintTheFirstViewAnswer, height),
+			String(format: "V:[labelQuestion]-%d-[targetView(%f)]", topConstraintTheFirstViewAnswer, height),
 			options: [],
 			metrics: nil,
 			views: views)
@@ -74,15 +74,15 @@ class ViewQuestionPuzzle: ViewQuestion {
 
 		NSLayoutConstraint.activateConstraints(allConstraints)
 
-		let topAlign: CGFloat = CGFloat(height / 3)
+		let topAlign = (height / 3)
 		for i in 0...2 {
 			let line = CALayer()
-			let x: CGFloat = CGFloat(Constants.commonGap)
-			let height: CGFloat = 1.5
-			let y = topAlign + 44 * CGFloat(i)
-			let width = windowWidth() - (2 * x)
+			let x = Constants.commonGap
+			let height = 1.5
+			let y = topAlign + 44.0 * Double(i)
+			let width = Double(windowWidth()) - (2 * x)
 
-			line.backgroundColor = UIColor.lightGrayColor().CGColor
+			line.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.4).CGColor
 			line.frame = CGRect(x: x, y: y, width: width, height: height)
 			targetView.layer.addSublayer(line)
 		}
@@ -118,26 +118,88 @@ class ViewQuestionPuzzle: ViewQuestion {
 	}
 
 	func frameUnselectedPuzzle(atIndex index: Int, withAnswer answer: Answer) -> CGRect {
-		let width = 50
-		let height = 30
-		let gap = 5
-		let y = Int(CGRectGetMaxY(targetView.frame) + 50)
+		if index == 0 {
+			let x = Constants.commonGap
+			let y = Double(CGRectGetMaxY(targetView.frame) + 50.0)
+			let width = calculateWidthWithAnswer(answer)
+			let height = 30.0
+			return CGRect(x: x, y: y, width: width, height: height)
+		} else {
+			let maxWidthLine = Double(windowWidth()) - 2 * Constants.commonGap
+			let frontPuzzleFrame = frameUnselectedPuzzle(atIndex: index - 1, withAnswer: question.answerList![index - 1])
+			let expectX = Double(frontPuzzleFrame.maxX) + Constants.puzzleGap
+			let expectWidth = calculateWidthWithAnswer(answer)
 
-		let numberAnswer = question.answerList!.count
-		let leftAlign = (Int(windowWidth()) - (numberAnswer * width + (numberAnswer - 1) * gap)) / 2
-
-		return CGRect(x: leftAlign + (width + gap) * index, y: y, width: width, height: height)
+			if expectX + expectWidth > maxWidthLine { // break line
+				let x = Constants.commonGap
+				let y = Double(frontPuzzleFrame.maxY) + Constants.commonGap
+				let width = expectWidth
+				let height = 30.0
+				return CGRect(x: x, y: y, width: width, height: height)
+			} else {
+				let x = expectX
+				let y = Double(frontPuzzleFrame.origin.y)
+				let width = expectWidth
+				let height = 30.0
+				return CGRect(x: x, y: Double(y), width: width, height: height)
+			}
+		}
 	}
 
 	func frameSelectedPuzzle(atIndex index: Int, withAnswer answer: Answer) -> CGRect {
-		let width = 50
-		let height = 30
-		let gap = 5
-		let y = Int(CGRectGetMaxY(labelQuestion.frame)) + 44 - height + topConstraintTheFirstViewAnswer - 2
+		if index == 0 {
+			let x = Constants.commonGap
+			let y = Double(CGRectGetMaxY(labelQuestion.frame)) + 44.0 - 30.0 + Double(topConstraintTheFirstViewAnswer) - 2.0
+			let width = calculateWidthWithAnswer(answer)
+			let height = 30.0
+			return CGRect(x: x, y: y, width: width, height: height)
+		} else {
+			let maxWidthLine = Double(windowWidth()) - 2 * Constants.commonGap
+			let frontPuzzleFrame = frameSelectedPuzzle(atIndex: index - 1, withAnswer: question.getOrderSelectedAnsers()[index - 1])
+			let expectX = Double(frontPuzzleFrame.maxX) + Constants.puzzleGap
+			let expectWidth = calculateWidthWithAnswer(answer)
 
-		let leftAlign = Constants.commonGap
+			if expectX + expectWidth > maxWidthLine { // break line
+				let x = Constants.commonGap
+				let y = Double(frontPuzzleFrame.maxY) + Constants.commonGap
+				let width = expectWidth
+				let height = 30.0
+				return CGRect(x: x, y: y, width: width, height: height)
+			} else {
+				let x = expectX
+				let y = Double(frontPuzzleFrame.origin.y)
+				let width = expectWidth
+				let height = 30.0
+				return CGRect(x: x, y: Double(y), width: width, height: height)
+			}
+		}
 
-		return CGRect(x: leftAlign + (width + gap) * index, y: y, width: width, height: height)
+		/*let width = 50
+		 let height = 30
+		 let gap = 5
+		 let y = Int(CGRectGetMaxY(labelQuestion.frame)) + 44 - height + topConstraintTheFirstViewAnswer - 2
+
+		 let leftAlign = Int(Constants.commonGap)
+
+		 return CGRect(x: leftAlign + (width + gap) * index, y: y, width: width, height: height)*/
+	}
+
+	func calculateWidthWithAnswer(answer: Answer) -> Double {
+		let text = NSString(string: answer.text)
+		let width = text.sizeWithAttributes([NSFontAttributeName: Constants.Font.fontAnswerPuzzle]).width
+		return Double(width) + 20
+	}
+
+	func calculateXUnselectedPuzzleAtIndex(index: Int) -> Double {
+		var x = Constants.commonGap
+		for i in 0..<index {
+			if let answerList = question.answerList {
+				let answer = answerList[i]
+				let width = calculateWidthWithAnswer(answer)
+				x = x + width + Constants.puzzleGap
+			}
+		}
+		return x
 	}
 }
 

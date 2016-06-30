@@ -110,7 +110,7 @@ class ViewQuestion: SpringView {
 			let views = ["view": self, "answerView": answerView, "labelQuestion": labelQuestion]
 			var allConstraints = [NSLayoutConstraint]()
 			let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-				String(format: "H:|-%d-[answerView]-%d-|", Constants.commonGap, Constants.commonGap),
+				String(format: "H:|-%f-[answerView]-%f-|", Constants.commonGap, Constants.commonGap),
 				options: [],
 				metrics: nil,
 				views: views)

@@ -54,7 +54,7 @@ class ViewQuestionTextAnswer: ViewQuestion {
 		let views = ["view": self, "textView": textView, "labelQuestion": labelQuestion]
 		var allConstraints = [NSLayoutConstraint]()
 		let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			String(format: "H:|-%d-[textView]-%d-|", Constants.commonGap, Constants.commonGap),
+			String(format: "H:|-%f-[textView]-%f-|", Constants.commonGap, Constants.commonGap),
 			options: [],
 			metrics: nil,
 			views: views)

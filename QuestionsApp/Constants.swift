@@ -12,7 +12,8 @@ import ChameleonFramework
 
 struct Constants {
 	static let timeAnimationHideView = 0.2
-	static let commonGap = 15
+	static let commonGap = 15.0
+	static let puzzleGap = 5.0
 
 	struct Color {
 		static let colorBackgroundQuestionView = UIColor(hex: "f0f0f0")
@@ -39,5 +40,6 @@ struct Constants {
 
 	struct Font {
 		static let fontQuestionLabel = UIFont.boldSystemFontOfSize(18.0)
+		static let fontAnswerPuzzle = UIFont.systemFontOfSize(17.0)
 	}
 }

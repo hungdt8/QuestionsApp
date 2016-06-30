@@ -424,6 +424,8 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 				showViewQuestion(currentViewQuestion!)
 				currentViewQuestion?.show()
 			} else {
+				currentViewQuestion?.removeFromSuperview()
+				currentViewQuestion = nil
 				self.performSegueWithIdentifier("showResultSegure", sender: nil)
 			}
 		}

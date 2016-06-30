@@ -60,12 +60,12 @@ func IS_RETINA() -> Bool {
 
 func windowWidth() -> CGFloat {
 	let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-	return appDelegate?.window?.frame.size.width ?? 0
+	return (appDelegate?.window?.frame.size.width) ?? 0.0
 }
 
 func windowHeight() -> CGFloat {
-    let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
-    return appDelegate?.window?.frame.size.height ?? 0
+	let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+	return appDelegate?.window?.frame.size.height ?? 0
 }
 
 // MARK: - Get Device infor

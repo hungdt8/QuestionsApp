@@ -18,9 +18,10 @@ class PuzzleView: UIView {
 
 	let label: UILabel = {
 		let label = UILabel()
-		label.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
 		label.textAlignment = .Center
 		label.textColor = UIColor.darkGrayColor()
+		label.font = Constants.Font.fontAnswerPuzzle
+
 		return label
 	}()
 
@@ -44,6 +45,8 @@ class PuzzleView: UIView {
 
 		addSubview(label)
 		label.text = answer.text
+		label.frame = self.bounds
+		label.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 
 		addTapGesture()
 	}
@@ -51,10 +54,6 @@ class PuzzleView: UIView {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
-	}
-
-	override func intrinsicContentSize() -> CGSize {
-		return CGSize(width: 50, height: 30)
 	}
 
 	deinit {
@@ -69,5 +68,11 @@ class PuzzleView: UIView {
 
 	func handleTapGesture(gesture: UITapGestureRecognizer) {
 		delegate?.puzzleViewDidTapped(self)
+	}
+
+	func calculateWidth() -> Double {
+		let text = NSString(string: answer.text)
+		let width = text.sizeWithAttributes([NSFontAttributeName: Constants.Font.fontAnswerPuzzle]).width
+		return Double(width) + 5
 	}
 }

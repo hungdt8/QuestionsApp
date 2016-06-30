@@ -35,17 +35,22 @@ class DataHelper {
 		let answer4_3 = Answer(id: 12, questionID: 3, text: "L", isCorrect: false, indexCorrect: nil)
 		let question3 = Question(id: 3, examID: 1, type: .Photo, question: "ijkl sdweoi?", photo: "a.png", answerList: [answer1_3, answer2_3, answer3_3, answer4_3])
 
-		let answer1_4 = Answer(id: 13, questionID: 4, text: "M", isCorrect: nil, indexCorrect: 1)
-		let answer2_4 = Answer(id: 14, questionID: 4, text: "N", isCorrect: nil, indexCorrect: 2)
-		let answer3_4 = Answer(id: 15, questionID: 4, text: "O", isCorrect: nil, indexCorrect: 3)
-		let answer4_4 = Answer(id: 16, questionID: 4, text: "P", isCorrect: nil, indexCorrect: 4)
-		let question4 = Question(id: 4, examID: 1, type: .Puzzle, question: "mnop sdweoi  fosie  sodifeo sdfjoiwef sdfjoeiw soidfjwoeifsdf oiowf dfewf sdf sd\n sdfoewifsf sdfoiwef ?", photo: nil, answerList: [answer1_4, answer2_4, answer3_4, answer4_4])
+		let answer1_4 = Answer(id: 13, questionID: 4, text: "Msdf dsfwe", isCorrect: nil, indexCorrect: 1)
+		let answer2_4 = Answer(id: 14, questionID: 4, text: "N11 2", isCorrect: nil, indexCorrect: 2)
+		let answer3_4 = Answer(id: 15, questionID: 4, text: "O 21", isCorrect: nil, indexCorrect: 3)
+		let answer4_4 = Answer(id: 16, questionID: 4, text: "P 312", isCorrect: nil, indexCorrect: 4)
+		let answer5_4 = Answer(id: 17, questionID: 4, text: "L dsfs sdfsd", isCorrect: nil, indexCorrect: 5)
+		let answer6_4 = Answer(id: 18, questionID: 4, text: "98 sdsfes sef", isCorrect: nil, indexCorrect: 6)
+		let answer7_4 = Answer(id: 19, questionID: 4, text: "2 sdsfes sef", isCorrect: nil, indexCorrect: 7)
+//		let answer8_4 = Answer(id: 20, questionID: 4, text: "7 sdsfes sef", isCorrect: nil, indexCorrect: 8)
+//		let answer9_4 = Answer(id: 21, questionID: 4, text: "1 sdsfes sef", isCorrect: nil, indexCorrect: 9)
+		let question4 = Question(id: 4, examID: 1, type: .Puzzle, question: "mnop sdweoi  fosie  sodifeo sdfjoiwef sdfjoeiw soidfjwoeifsdf oiowf dfewf sdf sd\n sdfoewifsf sdfoiwef ?", photo: nil, answerList: [answer1_4, answer2_4, answer3_4, answer4_4, answer5_4, answer6_4, answer7_4])
 
 		let question5 = Question(id: 5, examID: 1, type: .TextAnswer, question: "rsty sdweoi  fosie  sodifeo sdfjoiwef sdfjoeiw soidfjwoeifsdf oiowf?", photo: nil, answerList: nil)
 
 		examHomeList = [Exam]()
 		for i in 0...15 {
-			let exam = Exam(id: i + 1, name: "Exam " + "\(i+1)", categoryID: 1, questionList: [question1, question2, question3, question4, question5])
+			let exam = Exam(id: i + 1, name: "Exam " + "\(i+1)", categoryID: 1, questionList: [question4, question1, question2, question3, question5])
 			examHomeList.append(exam)
 		}
 	}
