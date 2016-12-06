@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '139A30A8A844269FB95FC3E46CBEC9D0'
+               BlueprintIdentifier = '6264F2CAB43EE6D7DE60F74518B23DB4'
                BlueprintName = 'SpeedLog'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SpeedLog.framework'>

@@ -37,44 +37,44 @@ class LinearProgressView: UIView {
 
 	func drawProgressView() {
 		let context = UIGraphicsGetCurrentContext()
-		CGContextSaveGState(context)
+		CGContextSaveGState(context!)
 
 		// Progres Bar Track
-		CGContextSetStrokeColorWithColor(context, trackColor.CGColor)
-		CGContextBeginPath(context)
-		CGContextSetLineWidth(context, 2.5)
-		CGContextMoveToPoint(context, barPadding, frame.size.height / 2)
-		CGContextAddLineToPoint(context, frame.size.width - barPadding, frame.size.height / 2)
-		CGContextSetLineCap(context, CGLineCap.Round)
-		CGContextStrokePath(context)
+		CGContextSetStrokeColorWithColor(context!, trackColor.CGColor)
+		CGContextBeginPath(context!)
+		CGContextSetLineWidth(context!, 2.5)
+		CGContextMoveToPoint(context!, barPadding, frame.size.height / 2)
+		CGContextAddLineToPoint(context!, frame.size.width - barPadding, frame.size.height / 2)
+		CGContextSetLineCap(context!, CGLineCap.Round)
+		CGContextStrokePath(context!)
 
-		CGContextSetStrokeColorWithColor(context, barColor.CGColor)
-		CGContextSetLineWidth(context, barThickness)
-		CGContextBeginPath(context)
-		CGContextMoveToPoint(context, barPadding, frame.size.height / 2)
-		CGContextAddLineToPoint(context, barPadding + calcualtePercentage(), frame.size.height / 2)
-		CGContextSetLineCap(context, CGLineCap.Round)
-		CGContextStrokePath(context)
+		CGContextSetStrokeColorWithColor(context!, barColor.CGColor)
+		CGContextSetLineWidth(context!, barThickness)
+		CGContextBeginPath(context!)
+		CGContextMoveToPoint(context!, barPadding, frame.size.height / 2)
+		CGContextAddLineToPoint(context!, barPadding + calcualtePercentage(), frame.size.height / 2)
+		CGContextSetLineCap(context!, CGLineCap.Round)
+		CGContextStrokePath(context!)
 
 		if progressValue == 100.0 {
-			CGContextSetLineWidth(context, 2.0)
-			CGContextSetStrokeColorWithColor(context, barColor.CGColor)
+			CGContextSetLineWidth(context!, 2.0)
+			CGContextSetStrokeColorWithColor(context!, barColor.CGColor)
 			let rectangle = CGRect(x: frame.size.width - (barThickness + 4) - 1, y: (frame.size.height - barThickness - 4) / 2, width: barThickness + 4, height: barThickness + 4)
-			CGContextAddEllipseInRect(context, rectangle)
-			CGContextStrokePath(context)
-			CGContextSetFillColorWithColor(context, barColor.CGColor)
-			CGContextFillEllipseInRect(context, rectangle)
+			CGContextAddEllipseInRect(context!, rectangle)
+			CGContextStrokePath(context!)
+			CGContextSetFillColorWithColor(context!, barColor.CGColor)
+			CGContextFillEllipseInRect(context!, rectangle)
 		} else {
-			CGContextSetLineWidth(context, 2.0)
-			CGContextSetStrokeColorWithColor(context, trackColor.CGColor)
+			CGContextSetLineWidth(context!, 2.0)
+			CGContextSetStrokeColorWithColor(context!, trackColor.CGColor)
 			let rectangle = CGRect(x: frame.size.width - barThickness - 1, y: (frame.size.height - barThickness) / 2, width: barThickness, height: barThickness)
-			CGContextAddEllipseInRect(context, rectangle)
-			CGContextStrokePath(context)
-			CGContextSetFillColorWithColor(context, trackColor.CGColor)
-			CGContextFillEllipseInRect(context, rectangle)
+			CGContextAddEllipseInRect(context!, rectangle)
+			CGContextStrokePath(context!)
+			CGContextSetFillColorWithColor(context!, trackColor.CGColor)
+			CGContextFillEllipseInRect(context!, rectangle)
 		}
 
-		CGContextRestoreGState(context)
+		CGContextRestoreGState(context!)
 	}
 
 	func calcualtePercentage() -> CGFloat {

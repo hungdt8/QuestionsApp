@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExamCell" rowHeight="71" id="qLE-fs-M19" customClass="ExamCell" customModule="QuestionsApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="71"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qLE-fs-M19" id="fyA-A2-FqM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86P-RV-LQq">
+                        <rect key="frame" x="20" y="15" width="335" height="40.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="86P-RV-LQq" firstAttribute="centerY" secondItem="fyA-A2-FqM" secondAttribute="centerY" id="Oqg-HT-blL"/>
+                    <constraint firstItem="86P-RV-LQq" firstAttribute="centerX" secondItem="fyA-A2-FqM" secondAttribute="centerX" id="WWM-95-e9c"/>
+                    <constraint firstItem="86P-RV-LQq" firstAttribute="leading" secondItem="fyA-A2-FqM" secondAttribute="leading" constant="20" id="fo7-Eg-O39"/>
+                    <constraint firstItem="86P-RV-LQq" firstAttribute="top" secondItem="fyA-A2-FqM" secondAttribute="top" constant="15" id="xfl-sP-N33"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="labelTtitle" destination="86P-RV-LQq" id="CFN-MT-WCU"/>
+            </connections>
+            <point key="canvasLocation" x="8.5" y="-22.5"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -30,6 +30,11 @@ class PuzzleView: UIView {
 		view.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
 		return view
 	}()
+    
+    let button: UIButton = {
+       let button = UIButton(type: .Custom)
+        return button
+    }()
 
 	weak var delegate: PuzzleViewDelegate?
 
@@ -53,7 +58,8 @@ class PuzzleView: UIView {
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
-
+        
+        button.frame = self.bounds
 	}
 
 	deinit {
@@ -65,7 +71,7 @@ class PuzzleView: UIView {
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(PuzzleView.handleTapGesture))
 		self.addGestureRecognizer(tapGesture)
 	}
-
+    
 	func handleTapGesture(gesture: UITapGestureRecognizer) {
 		delegate?.puzzleViewDidTapped(self)
 	}

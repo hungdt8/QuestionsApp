@@ -8,6 +8,7 @@
 
 import UIKit
 import SpeedLog
+import Nuke
 
 class ViewQuestionPhoto: ViewQuestion {
 	var photoView: UIImageView!
@@ -17,9 +18,10 @@ class ViewQuestionPhoto: ViewQuestion {
 	override var question: Question! {
 		didSet {
 			if let photo = question.photo {
-				photoView.image = UIImage(named: photo)
+                if let url = NSURL(string: photo) {
+                    photoView.nk_setImageWith(url)
+                }
 			}
-
 		}
 	}
 
@@ -29,7 +31,7 @@ class ViewQuestionPhoto: ViewQuestion {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-
+        
 		createPhotoView()
 	}
 
@@ -51,7 +53,8 @@ class ViewQuestionPhoto: ViewQuestion {
 		photoView.contentMode = .ScaleAspectFill
 		photoView.clipsToBounds = true
 		self.addSubview(photoView)
-		photoView.backgroundColor = UIColor.yellowColor()
+        
+        photoView.image = UIImage(named: "place-holder-large")
 
 		let views = ["photoView": photoView, "labelQuestion": labelQuestion, "view": self]
 		var allConstraints = [NSLayoutConstraint]()
@@ -72,7 +75,7 @@ class ViewQuestionPhoto: ViewQuestion {
 		allConstraints.append(centerX)
 
 		let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			String(format: "V:|[labelQuestion]-%d-[photoView(%d)]", 5, photoHeight),
+			String(format: "V:[labelQuestion]-%d-[photoView(%d)]", 5, photoHeight),
 			options: [],
 			metrics: nil,
 			views: views)

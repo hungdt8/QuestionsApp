@@ -10,6 +10,7 @@
 "Home" = "Home";
 "Most" = "Most";
 "Question" = "Question";
+"Search Exam" = "Tìm kiếm";
 
 "Report question." = "Có vấn đề với bài tập này.";
 "Check" = "Kiểm tra";
@@ -20,8 +21,14 @@
 
 "REPORT" = "BÁO CÁO";
 "Correct" = "Chính xác";
-"Correct answer: " = "Đáp án đúng: ";
-"(Choose a answer)" = "(Chọn một đáp án đúng)";
-"(Choose multiple answers)" = "(Chọn nhiều đáp án đúng)";
+"Incorrect" = "Không chính xác";
+"Correct answer: " = "Đáp án là: ";
+"Choose a answer" = "Chọn một đáp án đúng";
+"Choose multiple answers" = "Chọn nhiều đáp án đúng";
+"Arrange the order" = "Sắp xếp đúng thứ tự";
+"Type anwser" = "Trả lời câu hỏi";
 "Are you sure want to close?" = "Bạn có chắc chắn muốn thoát?";
 "The question you anwsered will be lost." = "Các kết quả bạn vừa trả lời sẽ bị mất.";
+
+"Could Not Send Email." = "Không thể gửi mail.";
+"Your device could not send e-mail.  Please check e-mail configuration and try again." = "Thiết bị bạn đang sử dụng không thể gửi email. Vui lòng kiểm tra lại cấu hình email và thử lại.";

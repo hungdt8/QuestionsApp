@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="YourExamCell" rowHeight="86" id="tv4-6c-iHN" customClass="YourExamCell" customModule="QuestionsApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="86"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tv4-6c-iHN" id="CeA-r2-xM5">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPi-gm-KaI">
+                        <rect key="frame" x="20" y="15" width="273" height="55.5"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2K-WN-ZhN">
+                        <rect key="frame" x="313" y="15" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="42" id="FR5-li-e1y"/>
+                            <constraint firstAttribute="height" constant="21" id="dZz-5p-BhQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Z2K-WN-ZhN" firstAttribute="leading" secondItem="rPi-gm-KaI" secondAttribute="trailing" constant="20" id="89X-Vc-THx"/>
+                    <constraint firstAttribute="trailing" secondItem="Z2K-WN-ZhN" secondAttribute="trailing" constant="20" id="8Pf-cO-8ub"/>
+                    <constraint firstItem="rPi-gm-KaI" firstAttribute="top" secondItem="CeA-r2-xM5" secondAttribute="top" constant="15" id="InU-uh-AFH"/>
+                    <constraint firstItem="rPi-gm-KaI" firstAttribute="leading" secondItem="CeA-r2-xM5" secondAttribute="leading" constant="20" id="Vu3-pi-Zlt"/>
+                    <constraint firstAttribute="trailing" secondItem="Z2K-WN-ZhN" secondAttribute="trailing" constant="20" id="caO-iM-JJx"/>
+                    <constraint firstItem="rPi-gm-KaI" firstAttribute="centerY" secondItem="CeA-r2-xM5" secondAttribute="centerY" id="kx9-EL-bD8"/>
+                    <constraint firstItem="Z2K-WN-ZhN" firstAttribute="top" secondItem="rPi-gm-KaI" secondAttribute="top" id="wS6-mr-ohA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="labelTtitle" destination="rPi-gm-KaI" id="dfN-80-tUg"/>
+                <outlet property="progressLabel" destination="Z2K-WN-ZhN" id="Qo9-wB-W4L"/>
+            </connections>
+            <point key="canvasLocation" x="-31.5" y="-20"/>
+        </tableViewCell>
+    </objects>
+</document>

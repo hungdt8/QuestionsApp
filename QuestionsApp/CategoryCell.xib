@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="CategoryCell" rowHeight="65" id="MQy-lm-wlu" customClass="CategoryCell" customModule="QuestionsApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MQy-lm-wlu" id="F6v-sA-rnt">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5qD-lh-OGM">
+                        <rect key="frame" x="20" y="12" width="40.5" height="40.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="5qD-lh-OGM" secondAttribute="height" multiplier="1:1" id="n4X-w7-XJn"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdd-P2-Xli">
+                        <rect key="frame" x="80.5" y="22" width="284.5" height="21.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="5qD-lh-OGM" firstAttribute="top" secondItem="F6v-sA-rnt" secondAttribute="top" constant="12" id="BOf-k2-tJb"/>
+                    <constraint firstAttribute="bottom" secondItem="5qD-lh-OGM" secondAttribute="bottom" constant="12" id="N02-fz-Zfd"/>
+                    <constraint firstItem="Zdd-P2-Xli" firstAttribute="leading" secondItem="5qD-lh-OGM" secondAttribute="trailing" constant="20" id="Pqs-k2-tNS"/>
+                    <constraint firstItem="Zdd-P2-Xli" firstAttribute="centerY" secondItem="5qD-lh-OGM" secondAttribute="centerY" id="Sk8-N9-I86"/>
+                    <constraint firstItem="5qD-lh-OGM" firstAttribute="leading" secondItem="F6v-sA-rnt" secondAttribute="leading" constant="20" id="mAd-Cc-VLd"/>
+                    <constraint firstAttribute="trailing" secondItem="Zdd-P2-Xli" secondAttribute="trailing" constant="10" id="sni-hi-hMo"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="categoryNameLabel" destination="Zdd-P2-Xli" id="HfD-fs-lxj"/>
+                <outlet property="imgView" destination="5qD-lh-OGM" id="w6N-Ht-hlP"/>
+            </connections>
+            <point key="canvasLocation" x="-133.5" y="-21"/>
+        </tableViewCell>
+    </objects>
+</document>

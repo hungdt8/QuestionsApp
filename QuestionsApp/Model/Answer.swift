@@ -7,29 +7,19 @@
 //
 
 import Foundation
+import ObjectMapper
 
-struct Answer {
-	let id: Int64
-	let questionID: Int64
-	let text: String
-	let isCorrect: Bool?
-	let indexCorrect: Int?
+struct Answer: Mappable {
+	var id: Int = 0
+	var questionID: Int = 0
+	var text: String = ""
+	var isCorrect: Bool?
+	var indexCorrect: Int?
 
-	let isSelected: Bool
-	let indexSelected: Int?
+	var isSelected: Bool = false
+	var indexSelected: Int?
 
-	init(id: Int64, questionID: Int64, text: String, isCorrect: Bool?, indexCorrect: Int?) {
-		self.id = id
-		self.questionID = questionID
-		self.text = text
-		self.isCorrect = isCorrect
-		self.indexCorrect = indexCorrect
-
-		self.isSelected = false
-		self.indexSelected = nil
-	}
-
-	init(id: Int64, questionID: Int64, text: String, isCorrect: Bool?, indexCorrect: Int?, isSelected: Bool, indexSelected: Int?) {
+	init(id: Int, questionID: Int, text: String, isCorrect: Bool?, indexCorrect: Int?, isSelected: Bool = false, indexSelected: Int? = nil) {
 		self.id = id
 		self.questionID = questionID
 		self.text = text
@@ -40,6 +30,28 @@ struct Answer {
 		self.indexSelected = indexSelected
 	}
 
+    init?(_ map: Map) {
+        
+    }
+    
+    init(answerEntity: AnswerEntity) {
+        self.id = Int(answerEntity.id)
+//        self.questionID = Int(anwserEntity.que)
+        self.text = answerEntity.text ?? ""
+        self.isCorrect = answerEntity.isCorrect
+        self.indexCorrect = Int(answerEntity.indexCorrect)
+        self.isSelected = answerEntity.isSelected
+        self.indexSelected = Int(answerEntity.indexSelected)
+    }
+    
+    mutating func mapping(map: Map) {
+        id     <- map["IdChoice"]
+        questionID  <- map["IdQuest"]
+        text <- map["ContentChoice"]
+        indexCorrect <- map["IsCorect"]
+        isCorrect <- map["IsCorect"]
+    }
+    
 	func isEqualTo(other: Answer) -> Bool {
 		return self.id == other.id
 	}

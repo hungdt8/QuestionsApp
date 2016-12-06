@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "report-red.png",
+      "filename" : "r1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "report-red@2x.png",
+      "filename" : "r2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "r3.png",
       "scale" : "3x"
     }
   ],

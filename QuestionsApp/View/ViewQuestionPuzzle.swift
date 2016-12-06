@@ -31,6 +31,7 @@ class ViewQuestionPuzzle: ViewQuestion {
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
+        var height: CGFloat = 0.0
 		for v in self.subviews {
 			if let puzzle = v as? PuzzleView {
 				let index = puzzle.tag - 1
@@ -38,8 +39,14 @@ class ViewQuestionPuzzle: ViewQuestion {
 
 				puzzle.frame = (answer.indexSelected == nil) ? frameUnselectedPuzzle(atIndex: index, withAnswer: answer) : frameSelectedPuzzle(atIndex: answer.indexSelected!, withAnswer: answer)
 				puzzle.backgroundView.frame = frameUnselectedPuzzle(atIndex: index, withAnswer: answer)
+                
+                if index == question.answerList!.count - 1 {
+                    height = CGRectGetMaxY(puzzle.backgroundView.frame)
+                }
 			}
 		}
+        
+        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.size.width, height: height + 10)
 	}
 
 	deinit {
@@ -173,15 +180,6 @@ class ViewQuestionPuzzle: ViewQuestion {
 				return CGRect(x: x, y: Double(y), width: width, height: height)
 			}
 		}
-
-		/*let width = 50
-		 let height = 30
-		 let gap = 5
-		 let y = Int(CGRectGetMaxY(labelQuestion.frame)) + 44 - height + topConstraintTheFirstViewAnswer - 2
-
-		 let leftAlign = Int(Constants.commonGap)
-
-		 return CGRect(x: leftAlign + (width + gap) * index, y: y, width: width, height: height)*/
 	}
 
 	func calculateWidthWithAnswer(answer: Answer) -> Double {
@@ -206,16 +204,13 @@ class ViewQuestionPuzzle: ViewQuestion {
 // MARK: - PuzzleViewDelegate
 extension ViewQuestionPuzzle: PuzzleViewDelegate {
 	func puzzleViewDidTapped(puzzleView: PuzzleView) {
-//		let index = puzzleView.tag - 1
 		let answer = puzzleView.answer
 		let numberSelectedAnswer = question.answerList!.filter({ $0.indexSelected != nil }).count
 
 		if let _ = answer.indexSelected { // unAssign index
 			delegate?.viewQuestion(self, didAssignAnswer: answer, toIndex: nil)
-
+                
 			UIView.animateWithDuration(0.2, animations: {
-//				puzzleView.frame = self.frameUnselectedPuzzle(atIndex: index, withAnswer: answer)
-
 				for (index, answer) in self.question.answerList!.enumerate() {
 					if let puzzle = self.viewWithTag(index + 1) as? PuzzleView {
 						puzzle.frame = (answer.indexSelected == nil) ? self.frameUnselectedPuzzle(atIndex: index, withAnswer: answer) : self.frameSelectedPuzzle(atIndex: answer.indexSelected!, withAnswer: answer)
@@ -227,7 +222,7 @@ extension ViewQuestionPuzzle: PuzzleViewDelegate {
 		} else { // assing index
 
 			delegate?.viewQuestion(self, didAssignAnswer: answer, toIndex: numberSelectedAnswer)
-
+            
 			UIView.animateWithDuration(0.2, animations: {
 				puzzleView.frame = self.frameSelectedPuzzle(atIndex: numberSelectedAnswer, withAnswer: answer)
 

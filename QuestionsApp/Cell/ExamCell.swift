@@ -17,7 +17,8 @@ class ExamCell: ParentCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-
+        
+        labelTtitle.textColor = UIColor(hexString: "1b1b1b")
 	}
 
 	/*

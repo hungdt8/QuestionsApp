@@ -19,8 +19,8 @@ class ResultViewController: ParentViewController {
 
 		// Do any additional setup after loading the view.
 		bottomButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-		bottomButton.titleLabel?.font = UIFont.boldSystemFontOfSize(20)
-		bottomButton.layer.cornerRadius = 25.0
+		bottomButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
+		bottomButton.layer.cornerRadius = 3.0
 		bottomButton.layer.masksToBounds = true
 		bottomButton.backgroundColor = Constants.Color.colorActiveButtonCheck
 		bottomButton.setTitle(NSLocalizedString("Next", comment: ""), forState: .Normal)

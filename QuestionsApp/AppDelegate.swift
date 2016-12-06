@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MagicalRecord
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,12 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 
-		application.statusBarHidden = true
+        MagicalRecord.setupCoreDataStackWithStoreNamed("Questions")
+        
+//		application.statusBarHidden = true
 
 		let dataHelper = DataHelper()
-		if let initialViewController = window?.rootViewController as? UINavigationController {
-			if let mainViewController = initialViewController.topViewController as? MainViewController {
-				mainViewController.dataHelper = dataHelper
+
+		if let array = (window?.rootViewController as? UITabBarController)?.viewControllers {
+			for viewController in array {
+				if let viewController = viewController as? UINavigationController {
+					if let mainViewController = viewController.topViewController as? ParentViewController {
+						mainViewController.dataHelper = dataHelper
+					}
+				}
 			}
 		}
 

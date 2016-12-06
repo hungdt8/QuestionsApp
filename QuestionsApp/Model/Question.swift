@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import ObjectMapper
 
 enum QuestionType: Int {
-	case OneChoose
-	case MultiChoose
-	case TextAnswer
-	case Puzzle
-	case Photo
+	case OneChoose = 1
+	case MultiChoose = 2
+	case TextAnswer = 3
+	case Puzzle = 4
+	case Photo = 5
 }
 
 enum Result: Int {
@@ -21,15 +22,61 @@ enum Result: Int {
 	case Wrong
 }
 
-struct Question {
-	let id: Int64
-	let examID: Int64
-	let type: QuestionType
-	let question: String
-	let photo: String?
+struct Question: Mappable {
+	var id: Int = 0
+	var examID: Int = 0
+	var type: QuestionType = .OneChoose
+	var question: String = ""
+	var photo: String?
+	var order: Int?
 
-	let answerList: [Answer]?
+	var answerList: [Answer]?
+    
+    var answerText: String?
 
+    init(id: Int, examID: Int, type: QuestionType, question: String, photo: String?, order: Int?, answerList: [Answer]?, answerText: String? = nil) {
+        self.id = id
+        self.question = question
+        self.examID = examID
+        self.type = type
+        self.photo = photo
+        self.order = order
+        self.answerList = answerList
+        self.answerText = answerText
+    }
+    
+    init?(_ map: Map) {
+        
+    }
+    
+    init(questionEntity: QuestionEntity) {
+        self.id = Int(questionEntity.id)
+        self.question = questionEntity.question ?? ""
+        self.type = QuestionType(rawValue: Int(questionEntity.type))!
+        self.photo = questionEntity.photo
+        self.order = Int(questionEntity.order)
+        self.answerText = questionEntity.answerText
+        
+        if let answerList = questionEntity.answerList {
+            self.answerList = [Answer]()
+            for answerEntity in answerList {
+                let answer = Answer(answerEntity: answerEntity as! AnswerEntity)
+                self.answerList?.append(answer)
+            }
+        }
+    }
+    
+    mutating func mapping(map: Map) {
+        id     <- map["id"]
+//        examID  <- map[""]
+        type <- map["loai"]
+        question <- map["contentQuestion"]
+        photo <- map["image"]
+//        order <- map["IdCate"]
+        answerList <- map["Choice"]
+    }
+    
+    
 	func selectAnswer(answer: Answer) -> Question {
 		let isSelectedAnswer = answer.isSelected
 		guard !isSelectedAnswer else {
@@ -55,6 +102,10 @@ struct Question {
 		return assignAnswer(answer, toIndex: nil)
 	}
 
+    func updateAnswerText(string: String) -> Question {
+        return Question(id: self.id, examID: self.examID, type: self.type, question: self.question, photo: self.photo, order: self.order, answerList: self.answerList, answerText: string)
+    }
+    
 	private func replaceAnswer(answer: Answer, withAnswer newAnswer: Answer) -> Question {
 		var list = answerList
 		if isSingleChoiceQuestion() { // single choice question
@@ -67,7 +118,7 @@ struct Question {
 			}
 		}
 
-		return Question(id: self.id, examID: self.examID, type: self.type, question: self.question, photo: self.photo, answerList: list)
+		return Question(id: self.id, examID: self.examID, type: self.type, question: self.question, photo: self.photo, order: self.order, answerList: list)
 	}
 
 	private func isSingleChoiceQuestion() -> Bool {
@@ -82,7 +133,21 @@ struct Question {
 			let selectedAnswers = getSelectedAnswers()
 			return (rightAnswers == selectedAnswers) ? .Right : .Wrong
 		case .TextAnswer:
-			return .Right
+            guard let rightAnswer = getRightAnswers().first else { // server ko tra ve cau tra loi dung --> mac nhien dung
+                return .Right
+            }
+            guard let answerText = answerText else {
+                return .Wrong
+            }
+            
+            let rightText = rightAnswer.text.lowercaseString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).stringByReplacingOccurrencesOfString(" ", withString: "")
+            let text = answerText.lowercaseString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).stringByReplacingOccurrencesOfString(" ", withString: "")
+            
+            if text == rightText {
+                return .Right
+            } else {
+                return .Wrong
+            }
 		case .Puzzle:
 			let rightAnswers = getOrderRightAnswer()
 			let selectedAnswers = getOrderSelectedAnsers()
@@ -133,6 +198,10 @@ struct Question {
 	}
 
 	func isUserChooseAnswer() -> Bool {
+        guard !isEmptyAnswerList() else {
+            return true
+        }
+        
 		switch type {
 		case .OneChoose, .MultiChoose, .Photo:
 			return (getSelectedAnswers().count > 0) ? true : false
@@ -143,6 +212,13 @@ struct Question {
 		}
 
 	}
+    
+    func isEmptyAnswerList() -> Bool {
+        guard let isEmpty = answerList?.isEmpty else {
+            return true
+        }
+        return isEmpty
+    }
 }
 
 // MARK: Equatable

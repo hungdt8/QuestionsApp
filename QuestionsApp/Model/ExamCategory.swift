@@ -7,9 +7,21 @@
 //
 
 import Foundation
+import ObjectMapper
 
-struct ExamCategory {
-	let id: Int64
-	let name: String
-	let examList: [Exam]
+struct ExamCategory:Mappable {
+	var id: Int = 0
+	var name: String = ""
+	var examList: [Exam]?
+    var image: String?
+    
+    init?(_ map: Map) {
+        
+    }
+    
+    mutating func mapping(map: Map) {
+        id     <- map["IdCate"]
+        name  <- map["NameCate"]
+        image <- map["Image"]
+    }
 }

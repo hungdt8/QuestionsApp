@@ -40,39 +40,41 @@ class ViewQuestionTextAnswer: ViewQuestion {
 
 	// MARK: - Override function
 	override func createAnswerViews() {
-		if textView != nil {
-			textView.removeFromSuperview()
-		}
-
-		textView = UITextView(frame: CGRect.zero)
-		textView.translatesAutoresizingMaskIntoConstraints = false
-		textView.clipsToBounds = false
-		textView.returnKeyType = .Done
-		textView.delegate = self
-		self.addSubview(textView)
-
-		let views = ["view": self, "textView": textView, "labelQuestion": labelQuestion]
-		var allConstraints = [NSLayoutConstraint]()
-		let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			String(format: "H:|-%f-[textView]-%f-|", Constants.commonGap, Constants.commonGap),
-			options: [],
-			metrics: nil,
-			views: views)
-		allConstraints += horizontallConstraints
-
-		let str = String(format: "V:[labelQuestion]-%d-[textView]|", topConstraintTheFirstViewAnswer)
-		let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			str,
-			options: [],
-			metrics: nil,
-			views: views)
-		allConstraints += verticalConstraints
-		NSLayoutConstraint.activateConstraints(allConstraints)
-
-		textView.layer.shadowColor = UIColor.blackColor().CGColor
-		textView.layer.shadowOffset = CGSize(width: 1, height: 1)
-		textView.layer.shadowOpacity = 0.1
-		textView.layer.shadowRadius = 4.0
+		if textView == nil {
+//			textView.removeFromSuperview()
+            
+            textView = UITextView(frame: CGRect.zero)
+            textView.translatesAutoresizingMaskIntoConstraints = false
+            textView.clipsToBounds = false
+            textView.returnKeyType = .Done
+            textView.delegate = self
+            self.addSubview(textView)
+            
+            let views = ["view": self, "textView": textView, "labelQuestion": labelQuestion]
+            var allConstraints = [NSLayoutConstraint]()
+            let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                String(format: "H:|-%f-[textView]-%f-|", Constants.commonGap, Constants.commonGap),
+                options: [],
+                metrics: nil,
+                views: views)
+            allConstraints += horizontallConstraints
+            
+            let str = String(format: "V:[labelQuestion]-%d-[textView(80)]", topConstraintTheFirstViewAnswer)
+            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                str,
+                options: [],
+                metrics: nil,
+                views: views)
+            allConstraints += verticalConstraints
+            NSLayoutConstraint.activateConstraints(allConstraints)
+            
+            textView.layer.shadowColor = UIColor.blackColor().CGColor
+            textView.layer.shadowOffset = CGSize(width: 1, height: 1)
+            textView.layer.shadowOpacity = 0.1
+            textView.layer.shadowRadius = 4.0
+        } else {
+            
+        }
 	}
 }
 
@@ -85,8 +87,7 @@ extension ViewQuestionTextAnswer: UITextViewDelegate {
 
 		var string = NSString(string: textView.text)
 		string = string.stringByReplacingCharactersInRange(range, withString: text)
-		SpeedLog.print(string)
-
+        
 		delegate?.viewQuestion(self, didTypeText: string as String)
 
 		return true

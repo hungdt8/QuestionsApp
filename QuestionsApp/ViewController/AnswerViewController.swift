@@ -10,13 +10,17 @@ import UIKit
 import SpeedLog
 import ChameleonFramework
 import Spring
+import MessageUI
 
-class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
+class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, MFMailComposeViewControllerDelegate {
 
-	@IBOutlet weak var buttonCheck: UIButton!
-	@IBOutlet weak var buttonClose: UIButton!
+	@IBOutlet weak var buttonCheck: ExtentButton!
+	@IBOutlet weak var buttonClose: ExtentButton!
+    @IBOutlet weak var randomButton: ExtentButton!
+	@IBOutlet weak var sendFriendButton: UIButton!
 	@IBOutlet weak var viewShowResult: ViewResult!
 	@IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet weak var bottomConstraintViewShowResult: NSLayoutConstraint!
 	@IBOutlet weak var leadingConstraintViewShowResult: NSLayoutConstraint!
 	@IBOutlet weak var heightConstraintViewShowResult: NSLayoutConstraint!
@@ -34,6 +38,8 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 	var isAnswered = false
 	var indexQuestion = 0
 
+//	@IBOutlet weak var progressView1: LinearProgressView!
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -41,9 +47,19 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 		view.backgroundColor = Constants.Color.colorBackgroundQuestionView
 
 		buttonCheck.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-		buttonCheck.titleLabel?.font = UIFont.boldSystemFontOfSize(20)
-		buttonCheck.layer.cornerRadius = 25.0
+		buttonCheck.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
+		buttonCheck.layer.cornerRadius = 3.0
 		buttonCheck.layer.masksToBounds = true
+
+		buttonClose.imageView?.image = buttonClose.imageView?.image?.imageWithRenderingMode(.AlwaysTemplate)
+		buttonClose.imageView?.tintColor = UIColor(hex: "6a6a6a")
+
+		sendFriendButton.backgroundColor = UIColor(hex: "68d705")
+		sendFriendButton.layer.cornerRadius = 3.0
+		sendFriendButton.layer.masksToBounds = true
+        
+        scrollView.canCancelContentTouches = true
+        scrollView.backgroundColor = UIColor.clearColor()
 
 		viewShowResult.delegate = self
 
@@ -73,24 +89,46 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 		bottomConstraintViewShowResult.constant = defaultBottomConstraintViewResult
 		viewShowResult.hidden = true
 
-		let question = dataHelper.exam.questionList[indexQuestion]
-		currentViewQuestion = viewQuestionWithQuesion(question)
-		showViewQuestion(currentViewQuestion!)
-
-		hideAllSubviews()
-		showLoadingIndicator()
-		let delay = 2000.0
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_MSEC))), dispatch_get_main_queue()) {
-			self.showAllSubviews()
-			self.hideLoadingIndicator()
-		}
+        if dataHelper.exam.questionList.isEmpty {
+            hideAllSubviews()
+            showLoadingIndicator()
+            getExamDetail()
+        } else {
+            self.showAllSubviews()
+            self.hideLoadingIndicator()
+            
+            for (index,question) in dataHelper.exam.questionList.enumerate() {
+                if question.isUserChooseAnswer() == false {
+                    indexQuestion = index
+                    break
+                }
+            }
+            showQuestionAtIndex(indexQuestion)
+            progressView.progress = dataHelper.exam.getProgress()
+            
+            if !dataHelper.exam.isRandom {
+                randomButton.setImage(UIImage(named: "disable-random"), forState: .Normal)
+            } else {
+                randomButton.setImage(UIImage(named: "enable-random"), forState: .Normal)
+            }
+        }
 	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 
+		UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
+
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnswerViewController.handleKeyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnswerViewController.handleKeyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleViewQuestionLayoutSubView(_:)), name: "ViewQuestionLayoutSubView", object: nil)
+	}
+
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Fade)
 	}
 
 	override func viewDidDisappear(animated: Bool) {
@@ -252,26 +290,45 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 	func hideAllSubviews() {
 		buttonCheck.hidden = true
 		buttonClose.hidden = true
+		sendFriendButton.hidden = true
 		progressView.hidden = true
 		currentViewQuestion?.hidden = true
 		viewShowResult.hidden = true
+        randomButton.hidden = true
 	}
 
 	func showAllSubviews() {
 		buttonCheck.hidden = false
 		buttonClose.hidden = false
+		sendFriendButton.hidden = false
 		progressView.hidden = false
 		currentViewQuestion?.hidden = false
+        randomButton.hidden = false
 	}
+    
+    func isFinish() -> Bool {
+        return dataHelper.exam.questionList.filter({$0.isUserChooseAnswer() == true}).count == dataHelper.exam.questionList.count
+    }
 
+    func reloadQuestionDataAtIndex(index: Int) {
+        let question = dataHelper.exam.questionList[index]
+        currentViewQuestion?.question = question
+        
+        if question.isUserChooseAnswer() {
+            activeButtonCheck()
+        } else {
+            disableButtonCheck()
+        }
+    }
+    
 	// MARK: - Loading
-	func showLoadingIndicator() {
+	override func showLoadingIndicator() {
 //		let size = CGSize(width: 100, height: 100)
 //		startActivityAnimating(size, message: nil, type: NVActivityIndicatorType.BallPulse)
 		indicator.startAnimation()
 	}
 
-	func hideLoadingIndicator() {
+	override func hideLoadingIndicator() {
 //		stopActivityAnimating()
 		indicator.stopAnimation()
 	}
@@ -299,12 +356,25 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 		return viewQuestion
 	}
 
+    func showQuestionAtIndex(index: Int) {
+        let question = dataHelper.exam.questionList[index]
+        currentViewQuestion = viewQuestionWithQuesion(question)
+        showViewQuestion(currentViewQuestion!)
+        
+        if question.isEmptyAnswerList() {
+            activeButtonCheck()
+        }
+    }
+    
 	func showViewQuestion(viewQuestion: ViewQuestion) {
+//        return
+        
+        viewQuestion.userInteractionEnabled = true
 		viewQuestion.translatesAutoresizingMaskIntoConstraints = false
-		self.view.addSubview(viewQuestion)
-		self.view.bringSubviewToFront(viewShowResult)
+		scrollView.addSubview(viewQuestion)
+		scrollView.bringSubviewToFront(viewShowResult)
 
-		let views = ["view": self.view, "viewQuestion": viewQuestion, "buttonCheck": buttonCheck]
+		let views = ["view": scrollView, "viewQuestion": viewQuestion, "buttonCheck": buttonCheck]
 		var allConstraints = [NSLayoutConstraint]()
 		let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
 			"H:|-0-[viewQuestion]-0-|",
@@ -313,14 +383,25 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 			views: views)
 		allConstraints += horizontallConstraints
 
-		let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			"V:|-40-[viewQuestion]-15-[buttonCheck]",
-			options: [],
-			metrics: nil,
-			views: views)
-		allConstraints += verticalConstraints
-
+        if viewQuestion.question.type == QuestionType.TextAnswer {
+            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                "V:|-0-[viewQuestion]-0-|",
+                options: [],
+                metrics: nil,
+                views: views)
+            allConstraints += verticalConstraints
+        } else {
+            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                "V:|-0-[viewQuestion]",
+                options: [],
+                metrics: nil,
+                views: views)
+            allConstraints += verticalConstraints
+        }
+		
 		NSLayoutConstraint.activateConstraints(allConstraints)
+        
+        viewQuestion.show()
 	}
 
 	func hideQuestionView(questionView: ViewQuestion?) {
@@ -338,10 +419,10 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 		}
 	}
 
-	override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		let view = anim.valueForKey("view")
-		view?.removeFromSuperview()
-	}
+//	override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+//		let view = anim.valueForKey("view")
+//		view?.removeFromSuperview()
+//	}
 
 	// MARK: - Notification Methods
 	func handleKeyboardWillShow(notification: NSNotification) {
@@ -372,6 +453,25 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 			}, completion: nil)
 	}
 
+    func handleViewQuestionLayoutSubView(notification: NSNotification) {
+//        return
+        
+        guard let questionView = notification.object as? ViewQuestion else {
+            return
+        }
+        
+        if questionView == currentViewQuestion {
+//            contentView.frame = questionView.bounds
+            scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: questionView.bounds.height)
+        }
+    }
+    
+    // MARK: - API Methods
+    func getExamDetail() {
+        dataHelper.delegate = self
+        dataHelper.getDetailExam(dataHelper.exam)
+    }
+    
 	// MARK: - Actions
 	@IBAction func close(sender: AnyObject) {
 		let title = NSLocalizedString("Are you sure want to close?", comment: "")
@@ -379,6 +479,8 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
 
 		let actionClose = UIAlertAction(title: NSLocalizedString("Close", comment: ""), style: .Default) { (_) in
+            self.dataHelper.saveExamToDB(self.dataHelper.exam)
+            
 			self.hideAllSubviews()
 			self.dismissViewControllerAnimated(true) {
 
@@ -407,29 +509,89 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable {
 				showViewResultWithResult(result)
 			}
 
-			progressView.progress = Float(indexQuestion + 1) / Float(dataHelper.exam.questionList.count)
-		} else { // next question
-			indexQuestion += 1
+			progressView.progress = dataHelper.exam.getProgress()
+		} else { // next
 			disableButtonCheck()
 
-			if indexQuestion < dataHelper.exam.questionList.count {
-				isAnswered = false
-				layoutBeforeAnswerQuestion()
-				hideViewResult()
-				hideQuestionView(currentViewQuestion)
-
-				let question = dataHelper.exam.questionList[indexQuestion]
-				currentViewQuestion = viewQuestionWithQuesion(question)
-				currentViewQuestion?.userInteractionEnabled = true
-				showViewQuestion(currentViewQuestion!)
-				currentViewQuestion?.show()
-			} else {
-				currentViewQuestion?.removeFromSuperview()
-				currentViewQuestion = nil
-				self.performSegueWithIdentifier("showResultSegure", sender: nil)
+			if isFinish() { // last question
+                currentViewQuestion?.removeFromSuperview()
+                currentViewQuestion = nil
+                
+                self.dataHelper.saveExamToDB(self.dataHelper.exam)
+                
+                self.performSegueWithIdentifier("showResultSegure", sender: nil)
+			} else { // next question
+                isAnswered = false
+                layoutBeforeAnswerQuestion()
+                hideViewResult()
+                hideQuestionView(currentViewQuestion)
+                
+                if dataHelper.exam.isRandom {
+                    let unAnswerdQuestion = dataHelper.exam.questionList.filter({$0.isUserChooseAnswer() == false})
+                    if unAnswerdQuestion.isEmpty == false {
+                        let index = Int(arc4random_uniform(UInt32(unAnswerdQuestion.count)))
+                        print("***** %d",unAnswerdQuestion.count)
+                        print("------ %d",index)
+                        let question = unAnswerdQuestion[index]
+                        indexQuestion = dataHelper.exam.questionList.indexOf({$0.id == question.id}) ?? indexQuestion + 1
+                    } else {
+                        indexQuestion += 1
+                    }
+                } else {
+                    indexQuestion += 1
+                }
+                
+                showQuestionAtIndex(indexQuestion)
 			}
 		}
 	}
+    
+    @IBAction func handleSendFriendTouchUp(sender: AnyObject) {
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            self.presentViewController(mailComposeViewController, animated: true, completion: { 
+                
+            })
+        } else {
+            self.showSendMailErrorAlert()
+        }
+    }
+    
+    @IBAction func handleRandomButtonTouchUp(sender: AnyObject) {
+        if dataHelper.exam.isRandom {
+            dataHelper.exam.isRandom = false
+            randomButton.setImage(UIImage(named: "disable-random"), forState: .Normal)
+        } else {
+            dataHelper.exam.isRandom = true
+            randomButton.setImage(UIImage(named: "enable-random"), forState: .Normal)
+        }
+    }
+    
+    // MARK: - Mail
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        
+//        mailComposerVC.setToRecipients(["someone@somewhere.com"])
+//        mailComposerVC.setSubject("Sending you an in-app e-mail...")
+//        mailComposerVC.setMessageBody("Sending e-mail in-app is not so bad!", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    func showSendMailErrorAlert() {
+        let title = NSLocalizedString("Could Not Send Email.", comment: "")
+        let message = NSLocalizedString("Your device could not send e-mail.  Please check e-mail configuration and try again.", comment: "")
+        let sendMailErrorAlert = UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate Method
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true) { 
+            
+        }
+    }
 }
 
 // MARK: - UIGestureRecognizerDelegate
@@ -480,38 +642,47 @@ extension AnswerViewController: ViewQuestionDelegate {
 	func viewQuestion(viewQuestion: ViewQuestion, didSelectAnswer answer: Answer) {
 		dataHelper.exam = (answer.isSelected == false) ? dataHelper.selectAnswer(answer, ofQuestion: viewQuestion.question, ofExam: dataHelper.exam) : dataHelper.unSelectAnswer(answer, ofQuestion: viewQuestion.question, ofExam: dataHelper.exam)
 
-		let question = dataHelper.exam.questionList[indexQuestion]
-		currentViewQuestion?.question = question
-
-		if question.isUserChooseAnswer() {
-			activeButtonCheck()
-		} else {
-			disableButtonCheck()
-		}
+        reloadQuestionDataAtIndex(indexQuestion)
 	}
 
 	func viewQuestion(viewQuestion: ViewQuestion, didAssignAnswer answer: Answer, toIndex index: Int?) {
-		if let index = index {
+		if let index = index {// assining
 			dataHelper.exam = dataHelper.assingAnswer(answer, ofQuestion: viewQuestion.question, ofExam: dataHelper.exam, toIndex: index)
-		} else {
+		} else { // unassining
 			dataHelper.exam = dataHelper.unassingAnswer(answer, ofQuestion: viewQuestion.question, ofExam: dataHelper.exam)
 		}
 
-		let question = dataHelper.exam.questionList[indexQuestion]
-		currentViewQuestion?.question = question
-
-		if question.isUserChooseAnswer() {
-			activeButtonCheck()
-		} else {
-			disableButtonCheck()
-		}
+        reloadQuestionDataAtIndex(indexQuestion)
 	}
 
 	func viewQuestion(viewQuestion: ViewQuestion, didTypeText text: String) {
-		if text.length == 0 {
-			disableButtonCheck()
-		} else {
-			activeButtonCheck()
-		}
+        dataHelper.exam = dataHelper.updateAnswerText(text, ofQuestion: viewQuestion.question, ofExam: dataHelper.exam)
+        
+        reloadQuestionDataAtIndex(indexQuestion)
 	}
+}
+
+// MARK: - DataHelperDelegate
+extension AnswerViewController: DataHelperDelegate {
+    func getExamDetailSuccess() {
+        self.showAllSubviews()
+        self.hideLoadingIndicator()
+        
+        if !dataHelper.exam.questionList.isEmpty {
+            showQuestionAtIndex(indexQuestion)
+        } else {
+            
+        }
+        
+        if !dataHelper.exam.isRandom {
+            randomButton.setImage(UIImage(named: "disable-random"), forState: .Normal)
+        } else {
+            randomButton.setImage(UIImage(named: "enable-random"), forState: .Normal)
+        }
+    }
+    
+    func getExamDetailFail(error: NSError?) {
+        self.showAllSubviews()
+        self.hideLoadingIndicator()
+    }
 }

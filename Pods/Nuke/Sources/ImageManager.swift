@@ -143,9 +143,12 @@ public class ImageManager {
             executingTasks.remove(task)
             setNeedsExecutePreheatingTasks()
             
+            assert(task.response != nil)
+            
             let completions = task.completions
+            let response = task.response!
             dispathOnMainThread {
-                completions.forEach { $0(task.response!) }
+                completions.forEach { $0(response) }
             }
         default: break
         }
@@ -164,7 +167,9 @@ public class ImageManager {
                 let key = ImageRequestKey($0, owner: self)
                 if preheatingTasks[key] == nil { // Don't create more than one task for the equivalent requests.
                     preheatingTasks[key] = ImageTaskInternal(manager: self, request: $0, identifier: nextTaskIdentifier).completion { [weak self] _ in
-                        self?.preheatingTasks[key] = nil
+                        self?.perform {
+                            self?.preheatingTasks[key] = nil
+                        }
                     }
                 }
             }
@@ -287,16 +292,21 @@ extension ImageManager: ImageLoadingManager {
 
     /// Completes ImageTask, stores the response in memory cache.
     public func loader(loader: ImageLoading, task: ImageTask, didCompleteWithImage image: Image?, error: ErrorType?, userInfo: Any?) {
-        let task = task as! ImageTaskInternal
-        if let image = image {
-            if task.request.memoryCacheStorageAllowed {
+        perform {
+            if let image = image where task.request.memoryCacheStorageAllowed {
                 setResponse(ImageCachedResponse(image: image, userInfo: userInfo), forRequest: task.request)
             }
-            task.response = ImageResponse.Success(image, ImageResponseInfo(isFastResponse: false, userInfo: userInfo))
-        } else {
-            task.response = ImageResponse.Failure(error ?? errorWithCode(.Unknown))
+            
+            let task = task as! ImageTaskInternal
+            if task.state == .Running {
+                if let image = image {
+                    task.response = ImageResponse.Success(image, ImageResponseInfo(isFastResponse: false, userInfo: userInfo))
+                } else {
+                    task.response = ImageResponse.Failure(error ?? errorWithCode(.Unknown))
+                }
+                setState(.Completed, forTask: task)
+            }
         }
-        perform { setState(.Completed, forTask: task) }
     }
 }
 
@@ -316,8 +326,10 @@ extension ImageManager: ImageTaskManaging {
         perform {
             switch task.state {
             case .Completed, .Cancelled:
+                assert(task.response != nil)
+                let response = task.response!.makeFastResponse()
                 dispathOnMainThread {
-                    completion(task.response!.makeFastResponse())
+                    completion(response)
                 }
             default: task.completions.append(completion)
             }
