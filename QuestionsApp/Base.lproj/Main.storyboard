@@ -214,23 +214,32 @@
                                     <action selector="handleRandomButtonTouchUp:" destination="s7m-Ig-WVl" eventType="touchUpInside" id="Sjo-9q-CvX"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o1x-Md-5L9">
-                                <rect key="frame" x="0.0" y="75" width="375" height="524"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o1x-Md-5L9">
+                                <rect key="frame" x="0.0" y="75" width="375" height="474"/>
                                 <subviews>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Aj-lf-9Mw">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="524"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Aj-lf-9Mw">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="474"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="9Aj-lf-9Mw" firstAttribute="leading" secondItem="o1x-Md-5L9" secondAttribute="leading" id="5i2-hr-8rP"/>
-                                    <constraint firstItem="9Aj-lf-9Mw" firstAttribute="centerY" secondItem="o1x-Md-5L9" secondAttribute="centerY" id="FmH-u9-QAp"/>
                                     <constraint firstAttribute="bottom" secondItem="9Aj-lf-9Mw" secondAttribute="bottom" id="HLa-eY-cMF"/>
                                     <constraint firstAttribute="trailing" secondItem="9Aj-lf-9Mw" secondAttribute="trailing" id="vWi-71-xEN"/>
                                     <constraint firstItem="9Aj-lf-9Mw" firstAttribute="top" secondItem="o1x-Md-5L9" secondAttribute="top" id="w26-A1-n8Y"/>
                                 </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTj-Go-W3x" customClass="ExtentButton" customModule="QuestionsApp" customModuleProvider="target">
+                                <rect key="frame" x="15" y="564" width="345" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="Ch8-R4-SIk"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="checkAnswer:" destination="s7m-Ig-WVl" eventType="touchUpInside" id="ZHF-nz-iW8"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTg-gx-CG2" customClass="ViewResult" customModule="QuestionsApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="477" width="375" height="90"/>
                                 <subviews>
@@ -282,16 +291,13 @@
                                     <outlet property="topLabelNotifyConstraint" destination="Wrz-qm-uCV" id="KwQ-7T-dZy"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTj-Go-W3x" customClass="ExtentButton" customModule="QuestionsApp" customModuleProvider="target">
-                                <rect key="frame" x="15" y="614" width="345" height="38"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o4M-IX-EB7" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="Ch8-R4-SIk"/>
+                                    <constraint firstAttribute="height" constant="50" id="RpW-b6-KOy"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="checkAnswer:" destination="s7m-Ig-WVl" eventType="touchUpInside" id="ZHF-nz-iW8"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -301,17 +307,20 @@
                             <constraint firstAttribute="trailing" secondItem="xTj-Go-W3x" secondAttribute="trailing" constant="15" id="3BX-fi-Ug0"/>
                             <constraint firstItem="zg2-Sh-U6l" firstAttribute="leading" secondItem="L2u-uG-etc" secondAttribute="trailing" constant="10" id="5C3-26-hEi"/>
                             <constraint firstItem="xTj-Go-W3x" firstAttribute="top" secondItem="o1x-Md-5L9" secondAttribute="bottom" constant="15" id="6i4-ao-b1P"/>
+                            <constraint firstItem="MaK-sy-GU0" firstAttribute="top" secondItem="o4M-IX-EB7" secondAttribute="bottom" id="GlM-AR-nIb"/>
                             <constraint firstAttribute="trailing" secondItem="o1x-Md-5L9" secondAttribute="trailing" id="HHm-HG-l8y"/>
                             <constraint firstAttribute="trailing" secondItem="Abr-Ib-kWR" secondAttribute="trailing" constant="15" id="Lsv-V7-WVP"/>
                             <constraint firstItem="xTj-Go-W3x" firstAttribute="centerX" secondItem="ZIF-0O-SQR" secondAttribute="centerX" id="N0I-ev-Ejb"/>
-                            <constraint firstItem="MaK-sy-GU0" firstAttribute="top" secondItem="xTj-Go-W3x" secondAttribute="bottom" constant="15" id="OKq-DB-b1n"/>
+                            <constraint firstItem="MaK-sy-GU0" firstAttribute="top" secondItem="xTj-Go-W3x" secondAttribute="bottom" constant="65" id="OKq-DB-b1n"/>
                             <constraint firstItem="L2u-uG-etc" firstAttribute="top" secondItem="Amb-we-FmA" secondAttribute="bottom" constant="23" id="RKD-4W-j5b"/>
                             <constraint firstItem="HMP-eY-GMU" firstAttribute="leading" secondItem="ZIF-0O-SQR" secondAttribute="leading" constant="15" id="Svr-m6-WCk"/>
                             <constraint firstItem="9Aj-lf-9Mw" firstAttribute="width" secondItem="ZIF-0O-SQR" secondAttribute="width" id="Teg-BV-F0S"/>
                             <constraint firstItem="WTg-gx-CG2" firstAttribute="width" secondItem="ZIF-0O-SQR" secondAttribute="width" id="dFp-fu-8H9"/>
+                            <constraint firstItem="o4M-IX-EB7" firstAttribute="leading" secondItem="ZIF-0O-SQR" secondAttribute="leading" id="eNq-Dy-LsA"/>
                             <constraint firstItem="HMP-eY-GMU" firstAttribute="top" secondItem="ZIF-0O-SQR" secondAttribute="top" constant="13" id="eWf-7e-5CC"/>
-                            <constraint firstItem="o1x-Md-5L9" firstAttribute="top" secondItem="Abr-Ib-kWR" secondAttribute="bottom" constant="15" id="gpQ-Tk-8NC"/>
+                            <constraint firstItem="o1x-Md-5L9" firstAttribute="top" secondItem="Abr-Ib-kWR" secondAttribute="bottom" constant="10" id="gpQ-Tk-8NC"/>
                             <constraint firstItem="MaK-sy-GU0" firstAttribute="top" secondItem="WTg-gx-CG2" secondAttribute="bottom" constant="100" id="iJY-uG-V2b"/>
+                            <constraint firstAttribute="trailing" secondItem="o4M-IX-EB7" secondAttribute="trailing" id="kmf-kK-UNw"/>
                             <constraint firstItem="L2u-uG-etc" firstAttribute="leading" secondItem="ZIF-0O-SQR" secondAttribute="leading" constant="55" id="nnM-sj-hMP"/>
                             <constraint firstItem="xTj-Go-W3x" firstAttribute="leading" secondItem="ZIF-0O-SQR" secondAttribute="leading" constant="15" id="p0l-8A-czy"/>
                             <constraint firstItem="WTg-gx-CG2" firstAttribute="leading" secondItem="ZIF-0O-SQR" secondAttribute="leading" id="zCO-7f-lGB"/>
@@ -319,10 +328,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bannerAD" destination="o4M-IX-EB7" id="zcU-8l-bRs"/>
                         <outlet property="bottomConstraintButtonCheck" destination="OKq-DB-b1n" id="1Fs-V7-wRe"/>
                         <outlet property="bottomConstraintViewShowResult" destination="iJY-uG-V2b" id="ZSN-J6-cao"/>
                         <outlet property="buttonCheck" destination="xTj-Go-W3x" id="qvj-Ff-ujh"/>
                         <outlet property="buttonClose" destination="HMP-eY-GMU" id="GxJ-sS-LP3"/>
+                        <outlet property="contentView" destination="9Aj-lf-9Mw" id="o0C-lu-TvJ"/>
                         <outlet property="heightConstraintViewShowResult" destination="k3P-Iw-Ut3" id="GJO-nV-8yq"/>
                         <outlet property="leadingConstraintViewShowResult" destination="zCO-7f-lGB" id="bC7-2q-dgw"/>
                         <outlet property="progressView" destination="L2u-uG-etc" id="Del-AH-ppz"/>

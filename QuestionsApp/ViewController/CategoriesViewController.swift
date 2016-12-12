@@ -10,7 +10,7 @@ import UIKit
 import SpeedLog
 import DGElasticPullToRefresh
 
-class CategoriesViewController: ParentViewController {
+class CategoriesViewController: ParentViewController, GAProtocol {
 
     var tableView: UITableView!
     let loadMoreView = LoadMoreFooterView.instanceFromNib()
@@ -54,6 +54,8 @@ class CategoriesViewController: ParentViewController {
         } else {
             tableView.reloadData()
         }
+        
+        sendScreenNameGA("Category Screen")
     }
     
     override func didReceiveMemoryWarning() {

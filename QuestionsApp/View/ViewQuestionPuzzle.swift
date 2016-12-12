@@ -62,7 +62,7 @@ class ViewQuestionPuzzle: ViewQuestion {
 	 */
 
 	func configTargetView() {
-		let views = ["view": self, "targetView": targetView, "labelQuestion": labelQuestion]
+		let views = ["view": self, "targetView": targetView, "labelQuestion": questionTextView!]
 		var allConstraints = [NSLayoutConstraint]()
 		let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
 			"H:|[targetView]|",
@@ -156,7 +156,7 @@ class ViewQuestionPuzzle: ViewQuestion {
 	func frameSelectedPuzzle(atIndex index: Int, withAnswer answer: Answer) -> CGRect {
 		if index == 0 {
 			let x = Constants.commonGap
-			let y = Double(CGRectGetMaxY(labelQuestion.frame)) + 44.0 - 30.0 + Double(topConstraintTheFirstViewAnswer) - 2.0
+			let y = Double(CGRectGetMaxY(questionTextView!.frame)) + 44.0 - 30.0 + Double(topConstraintTheFirstViewAnswer) - 2.0
 			let width = calculateWidthWithAnswer(answer)
 			let height = 30.0
 			return CGRect(x: x, y: y, width: width, height: height)

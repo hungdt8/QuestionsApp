@@ -16,6 +16,8 @@ struct Constants {
 	static let puzzleGap = 5.0
     
     static let baseUrl = "http://128.199.114.78:80/API/"
+    
+    static let admodID = "ca-app-pub-9820076886339598/6126335061"
 
 	struct Color {
 		static let colorBackgroundQuestionView = UIColor(hex: "f3f3f3")
@@ -42,7 +44,7 @@ struct Constants {
 	}
 
 	struct Font {
-		static let fontQuestionLabel = UIFont.init(name: "HelveticaNeue-Light", size: 16.0)
+		static let fontQuestionLabel = UIFont.init(name: "HelveticaNeue-Light", size: 16.0)!
 		static let fontOrderLabel = UIFont.init(name: "HelveticaNeue-Bold", size: 16.0)
 		static let fontAnswerPuzzle = UIFont.systemFontOfSize(17.0)
 	}

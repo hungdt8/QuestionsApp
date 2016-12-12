@@ -11,8 +11,9 @@ import SpeedLog
 import ChameleonFramework
 import Spring
 import MessageUI
+import GoogleMobileAds
 
-class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, MFMailComposeViewControllerDelegate {
+class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, MFMailComposeViewControllerDelegate, GAProtocol {
 
 	@IBOutlet weak var buttonCheck: ExtentButton!
 	@IBOutlet weak var buttonClose: ExtentButton!
@@ -21,10 +22,14 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 	@IBOutlet weak var viewShowResult: ViewResult!
 	@IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    
 	@IBOutlet weak var bottomConstraintViewShowResult: NSLayoutConstraint!
 	@IBOutlet weak var leadingConstraintViewShowResult: NSLayoutConstraint!
 	@IBOutlet weak var heightConstraintViewShowResult: NSLayoutConstraint!
 	@IBOutlet weak var bottomConstraintButtonCheck: NSLayoutConstraint!
+    @IBOutlet weak var bannerAD: GADBannerView!
+    
 	let indicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), type: NVActivityIndicatorType.BallPulse)
 
 	var currentViewQuestion: ViewQuestion?
@@ -58,7 +63,7 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 		sendFriendButton.layer.cornerRadius = 3.0
 		sendFriendButton.layer.masksToBounds = true
         
-        scrollView.canCancelContentTouches = true
+//        scrollView.canCancelContentTouches = true
         scrollView.backgroundColor = UIColor.clearColor()
 
 		viewShowResult.delegate = self
@@ -88,6 +93,8 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 
 		bottomConstraintViewShowResult.constant = defaultBottomConstraintViewResult
 		viewShowResult.hidden = true
+        
+        configAdmobBanner()
 
         if dataHelper.exam.questionList.isEmpty {
             hideAllSubviews()
@@ -122,7 +129,7 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnswerViewController.handleKeyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AnswerViewController.handleKeyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.handleViewQuestionLayoutSubView(_:)), name: "ViewQuestionLayoutSubView", object: nil)
+        sendScreenNameGA("Question Screen")
 	}
 
 	override func viewWillDisappear(animated: Bool) {
@@ -270,7 +277,7 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 			let translation = recognizer.translationInView(self.view)
 			if let _ = recognizer.view {
 				let newConstraint = bottomConstraintViewShowResult.constant - translation.y
-				let minConstraint: CGFloat = 0
+				let minConstraint: CGFloat = 50
 				let maxConstraint: CGFloat = CGRectGetHeight(self.view.frame) - heightViewResult
 
 				if minConstraint...maxConstraint ~= newConstraint {
@@ -295,6 +302,7 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 		currentViewQuestion?.hidden = true
 		viewShowResult.hidden = true
         randomButton.hidden = true
+        bannerAD.hidden = true
 	}
 
 	func showAllSubviews() {
@@ -304,6 +312,9 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 		progressView.hidden = false
 		currentViewQuestion?.hidden = false
         randomButton.hidden = false
+        bannerAD.hidden = false
+        
+        self.view.bringSubviewToFront(bannerAD)
 	}
     
     func isFinish() -> Bool {
@@ -370,36 +381,42 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 //        return
         
         viewQuestion.userInteractionEnabled = true
-		viewQuestion.translatesAutoresizingMaskIntoConstraints = false
-		scrollView.addSubview(viewQuestion)
-		scrollView.bringSubviewToFront(viewShowResult)
-
-		let views = ["view": scrollView, "viewQuestion": viewQuestion, "buttonCheck": buttonCheck]
-		var allConstraints = [NSLayoutConstraint]()
-		let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			"H:|-0-[viewQuestion]-0-|",
-			options: [],
-			metrics: nil,
-			views: views)
-		allConstraints += horizontallConstraints
-
-        if viewQuestion.question.type == QuestionType.TextAnswer {
-            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-                "V:|-0-[viewQuestion]-0-|",
-                options: [],
-                metrics: nil,
-                views: views)
-            allConstraints += verticalConstraints
+        contentView.addSubview(viewQuestion)
+        
+        if viewQuestion.question.type == QuestionType.Puzzle {
+            contentView.translatesAutoresizingMaskIntoConstraints = true
+            contentView.frame = scrollView.bounds
         } else {
-            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-                "V:|-0-[viewQuestion]",
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            viewQuestion.translatesAutoresizingMaskIntoConstraints = false
+            
+            let views = ["view": contentView, "viewQuestion": viewQuestion, "buttonCheck": buttonCheck]
+            var allConstraints = [NSLayoutConstraint]()
+            let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                "H:|-0-[viewQuestion]-0-|",
                 options: [],
                 metrics: nil,
                 views: views)
-            allConstraints += verticalConstraints
+            allConstraints += horizontallConstraints
+            
+            if viewQuestion.question.type == QuestionType.TextAnswer {
+                let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:|-0-[viewQuestion]-0-|",
+                    options: [],
+                    metrics: nil,
+                    views: views)
+                allConstraints += verticalConstraints
+            } else {
+                let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:|-0-[viewQuestion]-0-|",
+                    options: [],
+                    metrics: nil,
+                    views: views)
+                allConstraints += verticalConstraints
+            }
+            
+            NSLayoutConstraint.activateConstraints(allConstraints)
         }
-		
-		NSLayoutConstraint.activateConstraints(allConstraints)
         
         viewQuestion.show()
 	}
@@ -443,7 +460,7 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 		let animationCurve = UIViewAnimationOptions(rawValue: UInt(rawAnimationCurve))
 
 		if notification.name == UIKeyboardWillHideNotification {
-			bottomConstraintButtonCheck.constant = 15
+			bottomConstraintButtonCheck.constant = 65
 		} else {
 			bottomConstraintButtonCheck.constant = CGRectGetMaxY(view.bounds) - convertedKeyboardEndFrame.minY + 15
 		}
@@ -452,19 +469,6 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
 			self.view.layoutIfNeeded()
 			}, completion: nil)
 	}
-
-    func handleViewQuestionLayoutSubView(notification: NSNotification) {
-//        return
-        
-        guard let questionView = notification.object as? ViewQuestion else {
-            return
-        }
-        
-        if questionView == currentViewQuestion {
-//            contentView.frame = questionView.bounds
-            scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: questionView.bounds.height)
-        }
-    }
     
     // MARK: - API Methods
     func getExamDetail() {
@@ -591,6 +595,14 @@ class AnswerViewController: ParentViewController, NVActivityIndicatorViewable, M
         controller.dismissViewControllerAnimated(true) { 
             
         }
+    }
+    
+    //  MARK: - Admod
+    private func configAdmobBanner() {
+        bannerAD.adUnitID = Constants.admodID
+        bannerAD.rootViewController = self
+        let request = GADRequest()
+        bannerAD.loadRequest(request)
     }
 }
 

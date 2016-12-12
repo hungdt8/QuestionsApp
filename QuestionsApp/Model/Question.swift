@@ -33,6 +33,20 @@ struct Question: Mappable {
 	var answerList: [Answer]?
     
     var answerText: String?
+    
+    var questionTypeText: String {
+        get {
+            if type == .OneChoose || type == .Photo {
+                return NSLocalizedString("Choose a answer", comment: "")
+            } else if type == .MultiChoose {
+                return NSLocalizedString("Choose multiple answers", comment: "")
+            } else if type == .Puzzle {
+                return NSLocalizedString("Arrange the order", comment: "")
+            } else {
+                return NSLocalizedString("Type anwser", comment: "")
+            }
+        }
+    }
 
     init(id: Int, examID: Int, type: QuestionType, question: String, photo: String?, order: Int?, answerList: [Answer]?, answerText: String? = nil) {
         self.id = id

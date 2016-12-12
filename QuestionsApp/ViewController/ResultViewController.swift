@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResultViewController: ParentViewController {
+class ResultViewController: ParentViewController, GAProtocol {
 
 	@IBOutlet weak var titleResultTextLabel: UILabel!
 	@IBOutlet weak var resultLabel: UILabel!
@@ -38,6 +38,12 @@ class ResultViewController: ParentViewController {
 		resultLabel.attributedText = attributedText
 	}
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        sendScreenNameGA("Result Screen")
+    }
+    
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.

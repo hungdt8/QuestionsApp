@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		040F62341DCECE3100A0931E /* SearchExamViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F62331DCECE3100A0931E /* SearchExamViewControllerProtocol.swift */; };
 		040F62361DCED75600A0931E /* SearchExamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F62351DCED75600A0931E /* SearchExamViewController.swift */; };
 		0421C5531D06B2C7002D6495 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0421C5551D06B2C7002D6495 /* Localizable.strings */; };
 		0421C55B1D06B9B3002D6495 /* ExamCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0421C55A1D06B9B3002D6495 /* ExamCategory.swift */; };
@@ -28,6 +27,27 @@
 		0421C5811D072201002D6495 /* ViewQuestionTextAnswer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0421C5801D072201002D6495 /* ViewQuestionTextAnswer.xib */; };
 		0428A6991DE091EF0093E22E /* YourExamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428A6981DE091EF0093E22E /* YourExamCell.swift */; };
 		0428A69B1DE091FC0093E22E /* YourExamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0428A69A1DE091FC0093E22E /* YourExamCell.xib */; };
+		042CD4F11DF800F60077743D /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD4E71DF800F60077743D /* GoogleMobileAds.framework */; };
+		042CD4F21DF800F60077743D /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 042CD4EF1DF800F60077743D /* README.txt */; };
+		042CD4F31DF800F60077743D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 042CD4F01DF800F60077743D /* GoogleService-Info.plist */; };
+		042CD4F51DF804010077743D /* GAProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042CD4F41DF804010077743D /* GAProtocol.swift */; };
+		042CD4F71DF8063F0077743D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD4F61DF8063F0077743D /* AVFoundation.framework */; };
+		042CD4FB1DF806700077743D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD4FA1DF806700077743D /* AudioToolbox.framework */; };
+		042CD4FC1DF806950077743D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD4F81DF806630077743D /* CoreAudio.framework */; };
+		042CD4FE1DF806F20077743D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD4FD1DF806F10077743D /* CoreMedia.framework */; };
+		042CD5001DF807E50077743D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD4FF1DF807E50077743D /* AdSupport.framework */; };
+		042CD5021DF808030077743D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD5011DF808030077743D /* MessageUI.framework */; };
+		042CD5041DF808110077743D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD5031DF808110077743D /* SystemConfiguration.framework */; };
+		042CD5061DF808200077743D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD5051DF808200077743D /* StoreKit.framework */; };
+		042CD5081DF808300077743D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD5071DF808300077743D /* CoreGraphics.framework */; };
+		042CD50A1DF8083A0077743D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD5091DF8083A0077743D /* CoreTelephony.framework */; };
+		042CD50D1DF808470077743D /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD50B1DF808470077743D /* EventKit.framework */; };
+		042CD50E1DF808470077743D /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD50C1DF808470077743D /* EventKitUI.framework */; };
+		042CD5101DF809280077743D /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD50F1DF809280077743D /* SafariServices.framework */; };
+		042CD5121DF809720077743D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD5111DF809720077743D /* MediaPlayer.framework */; };
+		042CD5141DF809B10077743D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD5131DF809B10077743D /* MobileCoreServices.framework */; };
+		042CD5161DF809E60077743D /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 042CD5151DF809E60077743D /* GLKit.framework */; };
+		044967FA1DF998BB00ED0CE0 /* MathTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044967F91DF998BB00ED0CE0 /* MathTextView.swift */; };
 		044F88D81D081F85004B1B80 /* ViewAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F88D71D081F85004B1B80 /* ViewAnswer.swift */; };
 		044F88DA1D081F92004B1B80 /* ViewAnswer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044F88D91D081F92004B1B80 /* ViewAnswer.xib */; };
 		046B97D31DC8D6AA00768778 /* ExtentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B97D21DC8D6AA00768778 /* ExtentButton.swift */; };
@@ -110,7 +130,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		040F62331DCECE3100A0931E /* SearchExamViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchExamViewControllerProtocol.swift; sourceTree = "<group>"; };
 		040F62351DCED75600A0931E /* SearchExamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchExamViewController.swift; sourceTree = "<group>"; };
 		0421C5541D06B2C7002D6495 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0421C5561D06B301002D6495 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -134,6 +153,33 @@
 		0421C5801D072201002D6495 /* ViewQuestionTextAnswer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewQuestionTextAnswer.xib; path = QuestionsApp/View/ViewQuestionTextAnswer.xib; sourceTree = SOURCE_ROOT; };
 		0428A6981DE091EF0093E22E /* YourExamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourExamCell.swift; sourceTree = "<group>"; };
 		0428A69A1DE091FC0093E22E /* YourExamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YourExamCell.xib; sourceTree = "<group>"; };
+		042CD4E71DF800F60077743D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		042CD4E91DF800F60077743D /* GADMAdNetworkAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkAdapterProtocol.h; sourceTree = "<group>"; };
+		042CD4EA1DF800F60077743D /* GADMAdNetworkConnectorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkConnectorProtocol.h; sourceTree = "<group>"; };
+		042CD4EB1DF800F60077743D /* GADMediationAdRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMediationAdRequest.h; sourceTree = "<group>"; };
+		042CD4EC1DF800F60077743D /* GADMEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMEnums.h; sourceTree = "<group>"; };
+		042CD4ED1DF800F60077743D /* GADMRewardBasedVideoAdNetworkAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMRewardBasedVideoAdNetworkAdapterProtocol.h; sourceTree = "<group>"; };
+		042CD4EE1DF800F60077743D /* GADMRewardBasedVideoAdNetworkConnectorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMRewardBasedVideoAdNetworkConnectorProtocol.h; sourceTree = "<group>"; };
+		042CD4EF1DF800F60077743D /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		042CD4F01DF800F60077743D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		042CD4F41DF804010077743D /* GAProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAProtocol.swift; sourceTree = "<group>"; };
+		042CD4F61DF8063F0077743D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		042CD4F81DF806630077743D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		042CD4FA1DF806700077743D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		042CD4FD1DF806F10077743D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		042CD4FF1DF807E50077743D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		042CD5011DF808030077743D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		042CD5031DF808110077743D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		042CD5051DF808200077743D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		042CD5071DF808300077743D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		042CD5091DF8083A0077743D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		042CD50B1DF808470077743D /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		042CD50C1DF808470077743D /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		042CD50F1DF809280077743D /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		042CD5111DF809720077743D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		042CD5131DF809B10077743D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		042CD5151DF809E60077743D /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		044967F91DF998BB00ED0CE0 /* MathTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathTextView.swift; sourceTree = "<group>"; };
 		044F88D71D081F85004B1B80 /* ViewAnswer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAnswer.swift; path = QuestionsApp/View/ViewAnswer.swift; sourceTree = SOURCE_ROOT; };
 		044F88D91D081F92004B1B80 /* ViewAnswer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewAnswer.xib; path = QuestionsApp/View/ViewAnswer.xib; sourceTree = SOURCE_ROOT; };
 		046B97D21DC8D6AA00768778 /* ExtentButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtentButton.swift; sourceTree = "<group>"; };
@@ -227,6 +273,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				042CD5161DF809E60077743D /* GLKit.framework in Frameworks */,
+				042CD5141DF809B10077743D /* MobileCoreServices.framework in Frameworks */,
+				042CD5121DF809720077743D /* MediaPlayer.framework in Frameworks */,
+				042CD5101DF809280077743D /* SafariServices.framework in Frameworks */,
+				042CD50D1DF808470077743D /* EventKit.framework in Frameworks */,
+				042CD50E1DF808470077743D /* EventKitUI.framework in Frameworks */,
+				042CD50A1DF8083A0077743D /* CoreTelephony.framework in Frameworks */,
+				042CD5081DF808300077743D /* CoreGraphics.framework in Frameworks */,
+				042CD5061DF808200077743D /* StoreKit.framework in Frameworks */,
+				042CD5041DF808110077743D /* SystemConfiguration.framework in Frameworks */,
+				042CD5021DF808030077743D /* MessageUI.framework in Frameworks */,
+				042CD4F71DF8063F0077743D /* AVFoundation.framework in Frameworks */,
+				042CD5001DF807E50077743D /* AdSupport.framework in Frameworks */,
+				042CD4FE1DF806F20077743D /* CoreMedia.framework in Frameworks */,
+				042CD4FC1DF806950077743D /* CoreAudio.framework in Frameworks */,
+				042CD4FB1DF806700077743D /* AudioToolbox.framework in Frameworks */,
+				042CD4F11DF800F60077743D /* GoogleMobileAds.framework in Frameworks */,
 				E9153BAE323D02C91C6C3900 /* Pods_QuestionsApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +308,29 @@
 				04EE950C1DCF75DB00DDF4D1 /* Paging.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		042CD4E61DF800F60077743D /* GoogleMobileAdsSdkiOS-7.12.1 */ = {
+			isa = PBXGroup;
+			children = (
+				042CD4E71DF800F60077743D /* GoogleMobileAds.framework */,
+				042CD4E81DF800F60077743D /* Mediation Adapters */,
+			);
+			path = "GoogleMobileAdsSdkiOS-7.12.1";
+			sourceTree = SOURCE_ROOT;
+		};
+		042CD4E81DF800F60077743D /* Mediation Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				042CD4E91DF800F60077743D /* GADMAdNetworkAdapterProtocol.h */,
+				042CD4EA1DF800F60077743D /* GADMAdNetworkConnectorProtocol.h */,
+				042CD4EB1DF800F60077743D /* GADMediationAdRequest.h */,
+				042CD4EC1DF800F60077743D /* GADMEnums.h */,
+				042CD4ED1DF800F60077743D /* GADMRewardBasedVideoAdNetworkAdapterProtocol.h */,
+				042CD4EE1DF800F60077743D /* GADMRewardBasedVideoAdNetworkConnectorProtocol.h */,
+				042CD4EF1DF800F60077743D /* README.txt */,
+			);
+			path = "Mediation Adapters";
 			sourceTree = "<group>";
 		};
 		047269A01DF1C327004C00ED /* Font */ = {
@@ -275,6 +361,7 @@
 				044F88D91D081F92004B1B80 /* ViewAnswer.xib */,
 				04EE95081DCF736900DDF4D1 /* LoadMoreFooterView.swift */,
 				04EE95091DCF736900DDF4D1 /* LoadMoreFooterView.xib */,
+				044967F91DF998BB00ED0CE0 /* MathTextView.swift */,
 			);
 			name = View;
 			path = ViewController;
@@ -333,8 +420,11 @@
 		04B5BB731CFACE8E00629C93 /* QuestionsApp */ = {
 			isa = PBXGroup;
 			children = (
+				042CD4E61DF800F60077743D /* GoogleMobileAdsSdkiOS-7.12.1 */,
+				042CD4F01DF800F60077743D /* GoogleService-Info.plist */,
 				047269A01DF1C327004C00ED /* Font */,
 				04B5BB741CFACE8E00629C93 /* AppDelegate.swift */,
+				042CD4F41DF804010077743D /* GAProtocol.swift */,
 				04B5BB861CFAD13A00629C93 /* Constants.swift */,
 				04B5BB871CFAD13A00629C93 /* Utils.swift */,
 				04DBF2971D15322C00C83D9D /* DataHelper.swift */,
@@ -363,14 +453,13 @@
 				04B5BB901CFAD45900629C93 /* MainViewController.swift */,
 				0495DD0D1DBD03A8007920A7 /* HomeViewController.swift */,
 				04A8F9BE1DC4D856005CBC81 /* YourViewController.swift */,
+				040F62351DCED75600A0931E /* SearchExamViewController.swift */,
 				04A8F9C01DC4D86D005CBC81 /* MostViewController.swift */,
 				04990E9B1DC637520074EF6A /* CategoriesViewController.swift */,
 				04990EA11DC646450074EF6A /* CategoryDetailViewController.swift */,
 				04AE4BA81CFC8D16009C8C81 /* PopAnimator.swift */,
 				04AE4BA61CFC8557009C8C81 /* AnswerViewController.swift */,
 				0421C57C1D0721CD002D6495 /* ResultViewController.swift */,
-				040F62351DCED75600A0931E /* SearchExamViewController.swift */,
-				040F62331DCECE3100A0931E /* SearchExamViewControllerProtocol.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -461,6 +550,22 @@
 		5AE112C345387916B6616723 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				042CD5151DF809E60077743D /* GLKit.framework */,
+				042CD5131DF809B10077743D /* MobileCoreServices.framework */,
+				042CD5111DF809720077743D /* MediaPlayer.framework */,
+				042CD50F1DF809280077743D /* SafariServices.framework */,
+				042CD50B1DF808470077743D /* EventKit.framework */,
+				042CD50C1DF808470077743D /* EventKitUI.framework */,
+				042CD5091DF8083A0077743D /* CoreTelephony.framework */,
+				042CD5071DF808300077743D /* CoreGraphics.framework */,
+				042CD5051DF808200077743D /* StoreKit.framework */,
+				042CD5031DF808110077743D /* SystemConfiguration.framework */,
+				042CD5011DF808030077743D /* MessageUI.framework */,
+				042CD4FF1DF807E50077743D /* AdSupport.framework */,
+				042CD4FD1DF806F10077743D /* CoreMedia.framework */,
+				042CD4FA1DF806700077743D /* AudioToolbox.framework */,
+				042CD4F81DF806630077743D /* CoreAudio.framework */,
+				042CD4F61DF8063F0077743D /* AVFoundation.framework */,
 				AF9A747898C825384948237C /* Pods.framework */,
 				E3D3D7367F3E16DE6B31A5DC /* Pods_QuestionsApp.framework */,
 			);
@@ -541,6 +646,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04B5BB7F1CFACE8E00629C93 /* LaunchScreen.storyboard in Resources */,
+				042CD4F21DF800F60077743D /* README.txt in Resources */,
 				04A8F9BD1DC4A2B8005CBC81 /* ExamCell.xib in Resources */,
 				0421C5531D06B2C7002D6495 /* Localizable.strings in Resources */,
 				04EE950B1DCF736900DDF4D1 /* LoadMoreFooterView.xib in Resources */,
@@ -550,6 +656,7 @@
 				0421C5771D06BFFD002D6495 /* ViewQuestionPhoto.xib in Resources */,
 				0421C5671D06BEAF002D6495 /* ViewQuestionOneChoose.xib in Resources */,
 				047269A21DF1C327004C00ED /* Helvetica.otf in Resources */,
+				042CD4F31DF800F60077743D /* GoogleService-Info.plist in Resources */,
 				04990EA01DC638590074EF6A /* CategoryCell.xib in Resources */,
 				04B5BB7C1CFACE8E00629C93 /* Assets.xcassets in Resources */,
 				044F88DA1D081F92004B1B80 /* ViewAnswer.xib in Resources */,
@@ -618,7 +725,6 @@
 				0421C5631D06BE2C002D6495 /* ViewQuestion.swift in Sources */,
 				04C0BC0B1D1C24F600DC9C5E /* NVActivityIndicatorView.swift in Sources */,
 				04C0BBF31D1C24F600DC9C5E /* NVActivityIndicatorAnimationBallRotateChase.swift in Sources */,
-				040F62341DCECE3100A0931E /* SearchExamViewControllerProtocol.swift in Sources */,
 				0421C5651D06BE99002D6495 /* ViewQuestionOneChoose.swift in Sources */,
 				04C0BBEE1D1C24F600DC9C5E /* NVActivityIndicatorAnimationBallGridPulse.swift in Sources */,
 				04C0BC091D1C24F600DC9C5E /* NVActivityIndicatorAnimationDelegate.swift in Sources */,
@@ -654,11 +760,13 @@
 				04C0BC031D1C24F600DC9C5E /* NVActivityIndicatorAnimationOrbit.swift in Sources */,
 				0495DD0E1DBD03A8007920A7 /* HomeViewController.swift in Sources */,
 				04B5BB751CFACE8E00629C93 /* AppDelegate.swift in Sources */,
+				044967FA1DF998BB00ED0CE0 /* MathTextView.swift in Sources */,
 				04C0BBEB1D1C24F600DC9C5E /* NVActivityIndicatorAnimationBallClipRotateMultiple.swift in Sources */,
 				04EE950A1DCF736900DDF4D1 /* LoadMoreFooterView.swift in Sources */,
 				0495DD051DBCFC7D007920A7 /* APIInputBase.swift in Sources */,
 				04D803F51DD76A2C001DCFA6 /* ExamEntity+CoreDataProperties.swift in Sources */,
 				04915F001CFFCFA900E0DFA8 /* ExamCell.swift in Sources */,
+				042CD4F51DF804010077743D /* GAProtocol.swift in Sources */,
 				04B5BB931CFAD45900629C93 /* ParentViewController.swift in Sources */,
 				04C0BC071D1C24F600DC9C5E /* NVActivityIndicatorAnimationTriangleSkewSpin.swift in Sources */,
 				04D803F71DD76A2C001DCFA6 /* QuestionEntity+CoreDataProperties.swift in Sources */,
@@ -826,6 +934,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Le Duc Hung (76B7BGFDKV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Le Duc Hung (76B7BGFDKV)";
 				DEVELOPMENT_TEAM = TFT9EU4Z78;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.12.1",
+				);
 				INFOPLIST_FILE = QuestionsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -846,6 +959,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Le Duc Hung (76B7BGFDKV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Le Duc Hung (76B7BGFDKV)";
 				DEVELOPMENT_TEAM = TFT9EU4Z78;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GoogleMobileAdsSdkiOS-7.12.1",
+				);
 				INFOPLIST_FILE = QuestionsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

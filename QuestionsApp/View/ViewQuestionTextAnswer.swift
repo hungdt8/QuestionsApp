@@ -25,7 +25,11 @@ class ViewQuestionTextAnswer: ViewQuestion {
 		super.drawRect(rect)
 
 	}
-
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    }
+    
 	deinit {
 		SpeedLog.print("ViewQuestionTextAnswer Dealloc")
 	}
@@ -50,7 +54,7 @@ class ViewQuestionTextAnswer: ViewQuestion {
             textView.delegate = self
             self.addSubview(textView)
             
-            let views = ["view": self, "textView": textView, "labelQuestion": labelQuestion]
+            let views = ["view": self, "textView": textView, "labelQuestion": questionTextView!]
             var allConstraints = [NSLayoutConstraint]()
             let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
                 String(format: "H:|-%f-[textView]-%f-|", Constants.commonGap, Constants.commonGap),
@@ -59,7 +63,7 @@ class ViewQuestionTextAnswer: ViewQuestion {
                 views: views)
             allConstraints += horizontallConstraints
             
-            let str = String(format: "V:[labelQuestion]-%d-[textView(80)]", topConstraintTheFirstViewAnswer)
+            let str = String(format: "V:[labelQuestion]-%d-[textView(80)]-0-|", topConstraintTheFirstViewAnswer)
             let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
                 str,
                 options: [],

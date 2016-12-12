@@ -12,5 +12,6 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import <IosMath/IosMath.h>
 #import <IosMath/MTFontManager.h>
+#import <Google/Analytics.h>
 
 #endif /* QuestionsApp_Bridging_Header_h */

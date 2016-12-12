@@ -18,6 +18,8 @@ class CategoryDetailViewController: MainViewController {
 
         // Do any additional setup after loading the view.
         title = category.name
+        
+        screenGA = "Category Detail Screen"
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -30,6 +32,8 @@ class CategoryDetailViewController: MainViewController {
             startLoading()
             reloadDataFromServer()
         }
+        
+        sendScreenNameGA(screenGA)
     }
     
     override func didReceiveMemoryWarning() {

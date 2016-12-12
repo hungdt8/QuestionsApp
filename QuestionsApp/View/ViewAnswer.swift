@@ -20,16 +20,6 @@ class ViewAnswer: UIView {
 
 	@IBOutlet weak var buttonChooseAnswer: MultiLineButton!
     
-    var label: MTMathUILabel! = {
-        let label = MTMathUILabel()
-        label.paddingLeft = 45.0
-        label.labelMode = MTMathUILabelMode.Display
-        label.font = MTFontManager().latinModernFontWithSize(18.0)
-//        label.font = MTFontManager().fontWithName("Helvetica", size: 18.0)
-        label.userInteractionEnabled = false
-        return label
-    }()
-    
     var radioSelectedImage = "radio-selected"
     var radioUnselectedImage = "radio-unselected"
 
@@ -37,7 +27,30 @@ class ViewAnswer: UIView {
 		didSet {
 			buttonChooseAnswer.setTitle(answer.text, forState: .Normal)
             
-            label.latex = String(format: "\text {%@}", answer.text)
+            let text = String(format: "%@", answer.text)
+            let questionTextView = MathTextView(text: text, color: Constants.Color.colorQuestionLabel, font: UIFont.systemFontOfSize(18.0))
+            questionTextView.translatesAutoresizingMaskIntoConstraints = false
+            questionTextView.userInteractionEnabled = false
+            self.addSubview(questionTextView)
+            
+            let views = ["view": self, "questionTextView": questionTextView]
+            var allConstraints = [NSLayoutConstraint]()
+            let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                "H:|-45-[questionTextView]-0-|",
+                options: [],
+                metrics: nil,
+                views: views)
+            allConstraints += horizontallConstraints
+            
+            let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                "V:|-9-[questionTextView]-9-|",
+                options: [],
+                metrics: nil,
+                views: views)
+            allConstraints += verticalConstraints
+            
+            NSLayoutConstraint.activateConstraints(allConstraints)
+            
 		}
 	}
 
@@ -55,33 +68,10 @@ class ViewAnswer: UIView {
 
 		self.backgroundColor = UIColor.whiteColor()
 //		buttonChooseAnswer.backgroundColor = UIColor.whiteColor()
-        
-        self.addSubview(label)
-        
-//        let views = ["label": label]
-//        var allConstraints = [NSLayoutConstraint]()
-//        let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-//            String(format: "H:|[label]|"),
-//            options: [],
-//            metrics: nil,
-//            views: views)
-//        allConstraints += horizontallConstraints
-//        
-//        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-//            String(format: "V:|[label]|"),
-//            options: [],
-//            metrics: nil,
-//            views: views)
-//        allConstraints += verticalConstraints
-//        
-//        NSLayoutConstraint.activateConstraints(allConstraints)
-        
-        label.frame = self.bounds
 	}
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        label.frame = self.bounds
     }
     
 	deinit {

@@ -32,7 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				}
 			}
 		}
-
+        
+        activeGA()
+        
 		return true
 	}
 
@@ -57,5 +59,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
+}
 
+//MARK: - GA
+extension AppDelegate {
+    func activeGA() {
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        
+        //        		let gai = GAI.sharedInstance()
+        //        		gai.trackUncaughtExceptions = true // report uncaught exceptions
+        //        		gai.logger.logLevel = GAILogLevel.Verbose // remove before app release
+    }
 }

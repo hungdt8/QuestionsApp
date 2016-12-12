@@ -31,12 +31,20 @@ class SearchExamViewController: MainViewController {
         tapGesture.cancelsTouchesInView = false
         
         searchBar.delegate = self
+        
+        screenGA = "Search Screen"
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         tableView.frame = CGRect(x: 0, y: searchBar.frame.size.height, width: view.frame.size.width, height: view.frame.size.height - searchBar.frame.size.height)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        sendScreenNameGA(screenGA)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -130,6 +138,8 @@ extension SearchExamViewController: UISearchBarDelegate {
             
             dataHelper.resultSearchList.removeAll()
             requestSearchExamWithKeyword(keyword)
+            
+            logGASearchKeyword(keyword)
         }
     }
     

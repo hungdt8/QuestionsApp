@@ -19,6 +19,8 @@ class YourViewController: MainViewController {
         
         isFullData = true
         endLoading()
+        
+        screenGA = "Yours Screen"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -27,6 +29,8 @@ class YourViewController: MainViewController {
         dataHelper.getSavedExamFromDB()
         arrayExam = dataHelper.yourExamList
         tableView.reloadData()
+        
+        sendScreenNameGA(screenGA)
     }
 
     override func didReceiveMemoryWarning() {

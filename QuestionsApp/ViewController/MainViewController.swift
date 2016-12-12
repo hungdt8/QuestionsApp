@@ -11,7 +11,7 @@ import Spring
 import SpeedLog
 import DGElasticPullToRefresh
 
-class MainViewController: ParentViewController {
+class MainViewController: ParentViewController, GAProtocol {
 
 	@IBOutlet weak var viewAnimation: SpringView!
     let loadMoreView = LoadMoreFooterView.instanceFromNib()
@@ -34,6 +34,8 @@ class MainViewController: ParentViewController {
         }
     }
 
+    var screenGA: String = ""
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -185,6 +187,8 @@ extension MainViewController: UITableViewDelegate {
 			presentViewController(answerViewController, animated: true, completion: {
 
 			})
+            
+            logGAShowExamFrom(screenGA)
 		}
 	}
 }

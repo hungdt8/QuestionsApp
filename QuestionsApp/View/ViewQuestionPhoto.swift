@@ -17,6 +17,9 @@ class ViewQuestionPhoto: ViewQuestion {
 
 	override var question: Question! {
 		didSet {
+            photoView?.removeFromSuperview()
+            createPhotoView()
+            
 			if let photo = question.photo {
                 if let url = NSURL(string: photo) {
                     photoView.nk_setImageWith(url)
@@ -31,8 +34,6 @@ class ViewQuestionPhoto: ViewQuestion {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-        
-		createPhotoView()
 	}
 
 	deinit {
@@ -56,7 +57,7 @@ class ViewQuestionPhoto: ViewQuestion {
         
         photoView.image = UIImage(named: "place-holder-large")
 
-		let views = ["photoView": photoView, "labelQuestion": labelQuestion, "view": self]
+		let views = ["photoView": photoView, "labelQuestion": questionTextView!, "view": self]
 		var allConstraints = [NSLayoutConstraint]()
 		let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
 			String(format: "H:[photoView(%d)]", photoWidth),

@@ -23,24 +23,46 @@ class ViewQuestion: SpringView {
 	let answerViewHeight = 38
 	let answerViewsGap = 8
 
-	var labelOrder: UILabel!
-	var labelQuestion: UILabel!
+    var labelOrder: UILabel! = {
+        let label = UILabel(frame: CGRect.zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.textColor = Constants.Color.colorQuestionLabel
+        label.font = Constants.Font.fontOrderLabel
+        return label
+    }()
+    
+    var questionTextView: MathTextView?
 
 	var question: Question! {
 		didSet {
-			labelQuestion.text = question.question
-
-			if question.type == .OneChoose || question.type == .Photo {
-				labelOrder.text = NSLocalizedString("Choose a answer", comment: "")
-			} else if question.type == .MultiChoose {
-				labelOrder.text = NSLocalizedString("Choose multiple answers", comment: "")
-			} else if question.type == .Puzzle {
-				labelOrder.text = NSLocalizedString("Arrange the order", comment: "")
-			} else {
-				labelOrder.text = NSLocalizedString("Type anwser", comment: "")
-			}
-
-			labelQuestion.sizeToFit()
+            labelOrder.text = question.questionTypeText
+            
+            if questionTextView == nil {
+                let questionText = String(format: "%@", question.question)
+                questionTextView = MathTextView(text: questionText, color: Constants.Color.colorQuestionLabel, font: Constants.Font.fontQuestionLabel)
+                questionTextView?.translatesAutoresizingMaskIntoConstraints = false
+                self.addSubview(questionTextView!)
+                
+                let views = ["view": self, "questionTextView": questionTextView!]
+                var allConstraints = [NSLayoutConstraint]()
+                let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                    "H:|-20-[questionTextView]-20-|",
+                    options: [],
+                    metrics: nil,
+                    views: views)
+                allConstraints += horizontallConstraints
+                
+                let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+                    "V:|-35-[questionTextView]",
+                    options: [],
+                    metrics: nil,
+                    views: views)
+                allConstraints += verticalConstraints
+                
+                NSLayoutConstraint.activateConstraints(allConstraints)
+            }
+            
 			createAnswerViews()
 		}
 	}
@@ -60,22 +82,13 @@ class ViewQuestion: SpringView {
 		self.backgroundColor = UIColor.clearColor()
 
 		createOrderLabel()
-		createQuestionLabel()
-
 	}
 
 	override func layoutSubviews() {
 		super.layoutSubviews()
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("ViewQuestionLayoutSubView", object: self)
 	}
 
 	func createOrderLabel() {
-		labelOrder = UILabel(frame: CGRect.zero)
-		labelOrder.translatesAutoresizingMaskIntoConstraints = false
-		labelOrder.numberOfLines = 0
-		labelOrder.textColor = Constants.Color.colorQuestionLabel
-		labelOrder.font = Constants.Font.fontOrderLabel
 		self.addSubview(labelOrder)
 
 		let views = ["view": self, "labelOrder": labelOrder]
@@ -88,34 +101,7 @@ class ViewQuestion: SpringView {
 		allConstraints += horizontallConstraints
 
 		let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			"V:|-5-[labelOrder(30)]",
-			options: [],
-			metrics: nil,
-			views: views)
-		allConstraints += verticalConstraints
-
-		NSLayoutConstraint.activateConstraints(allConstraints)
-	}
-
-	func createQuestionLabel() {
-		labelQuestion = UILabel(frame: CGRect.zero)
-		labelQuestion.translatesAutoresizingMaskIntoConstraints = false
-		labelQuestion.numberOfLines = 0
-		labelQuestion.textColor = Constants.Color.colorQuestionLabel
-		labelQuestion.font = Constants.Font.fontQuestionLabel
-		self.addSubview(labelQuestion)
-
-		let views = ["view": self, "labelQuestion": labelQuestion]
-		var allConstraints = [NSLayoutConstraint]()
-		let horizontallConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			"H:|-20-[labelQuestion]-20-|",
-			options: [],
-			metrics: nil,
-			views: views)
-		allConstraints += horizontallConstraints
-
-		let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
-			"V:|-40-[labelQuestion(>=30)]",
+			"V:|-0-[labelOrder(30)]",
 			options: [],
 			metrics: nil,
 			views: views)
@@ -133,7 +119,7 @@ class ViewQuestion: SpringView {
 	}
 
 	func generateAnswerViews() {
-        var aboveView: UIView! = labelQuestion
+        var aboveView: UIView! = questionTextView
         
 		for (index, answer) in question.answerList!.enumerate() {
 			let answerView = ViewAnswer.instanceFromNib()
@@ -173,7 +159,7 @@ class ViewQuestion: SpringView {
             
             var str: String!
             if index == question.answerList!.count - 1 {
-                str = String(format: "V:[aboveView]-%d-[answerView]-0-|", topConstraint)
+                str = String(format: "V:[aboveView]-%d-[answerView]-10-|", topConstraint)
             } else {
                 str = String(format: "V:[aboveView]-%d-[answerView]", topConstraint)
             }

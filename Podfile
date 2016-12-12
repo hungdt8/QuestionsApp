@@ -20,6 +20,9 @@ target 'QuestionsApp' do
     pod 'MBProgressHUD', '~> 1.0'
     pod 'MagicalRecord', '~> 2.3'
     pod 'iosMath'
+    
+    pod 'Google/Analytics'
+    #pod 'Firebase/Core'
 
 end
 

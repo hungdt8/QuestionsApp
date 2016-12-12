@@ -14,6 +14,8 @@ class MostViewController: MainViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        screenGA = "Most Screen"
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -26,6 +28,8 @@ class MostViewController: MainViewController {
             startLoading()
             reloadDataFromServer()
         }
+        
+        sendScreenNameGA(screenGA)
     }
     
     override func didReceiveMemoryWarning() {

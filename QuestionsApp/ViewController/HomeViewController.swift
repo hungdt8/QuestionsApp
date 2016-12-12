@@ -15,6 +15,8 @@ class HomeViewController: MainViewController {
 
         // Do any additional setup after loading the view.
 //        addSearchItemButtonWithSelector(#selector(self.showSearchExamScreen))
+        
+        screenGA = "Home Screen"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -27,6 +29,8 @@ class HomeViewController: MainViewController {
             startLoading()
             reloadDataFromServer()
         }
+        
+        sendScreenNameGA(screenGA)
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,9 +88,3 @@ extension HomeViewController: DataHelperDelegate {
     }
 }
 
-// MARK: - SearchExamViewControllerProtocol
-//extension HomeViewController {
-//    func showSearchExamScreen() {
-//        self.performSegueWithIdentifier("showSearchExamSegue", sender: nil)
-//    }
-//}
